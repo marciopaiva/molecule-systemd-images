@@ -15,6 +15,11 @@ RUN rm -f /lib/systemd/system/multi-user.target.wants/* \
     /lib/systemd/system/basic.target.wants/* \
     /lib/systemd/system/anaconda.target.wants/*
 
+RUN set -xe \
+    && groupadd -r molecule \
+    && useradd -m -g molecule molecule \
+    && usermod -aG wheel molecule 
+    
 VOLUME [ "/sys/fs/cgroup" ]
 
 CMD ["/usr/sbin/init"]
