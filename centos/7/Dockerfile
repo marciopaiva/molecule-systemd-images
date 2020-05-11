@@ -1,10 +1,10 @@
-FROM centos:8
+FROM centos:7
 
 LABEL maintainer="Marcio Barbosa"
 
 ENV container docker
 
-RUN yum makecache --timer && yum install -y python3 sudo bash && yum clean all
+RUN yum makecache  && yum install -y python3 sudo bash && yum clean all
 
 RUN cd /lib/systemd/system/sysinit.target.wants/; \
     for i in *; do [ $i = systemd-tmpfiles-setup.service ] || rm -f $i; done

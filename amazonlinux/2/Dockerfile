@@ -1,10 +1,10 @@
-FROM centos:8
+FROM amazonlinux:2
 
 LABEL maintainer="Marcio Barbosa"
 
 ENV container docker
 
-RUN yum makecache --timer && yum install -y python3 sudo bash && yum clean all
+RUN yum makecache  && yum install -y **systemd** python3 yum-plugin-ovl sudo bash && sed -i 's/plugins=0/plugins=1/g' /etc/yum.conf && yum clean all
 
 RUN cd /lib/systemd/system/sysinit.target.wants/; \
     for i in *; do [ $i = systemd-tmpfiles-setup.service ] || rm -f $i; done
@@ -31,6 +31,6 @@ if [ -f /etc/bashrc ]; then \n\
 fi \n\
 " > /root/.bashrc
 
-VOLUME [ "/sys/fs/cgroup" ]
+VOLUME ["/sys/fs/cgroup", "/tmp", "/run"]
 
 CMD ["/usr/sbin/init"]

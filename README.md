@@ -10,6 +10,9 @@ Molecule provides support for testing with multiple instances, operating systems
 
 Molecule encourages an approach that results in consistently developed roles that are well-written, easily understood and maintained.
 
-## CentOS Supported Tags
- - `latest`, `8`
+## [Amazon Linux Supported Tags](https://hub.docker.com/r/mpaivabarbosa/molecule-systemd-amazonlinux)
+ - `latest`, `2`
 
+## [CentOS Supported Tags](https://hub.docker.com/r/mpaivabarbosa/molecule-systemd-centos)
+ - `latest`, `8`
+ - `7`
