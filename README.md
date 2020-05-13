@@ -1,5 +1,9 @@
 # Molecule Systemd Images
 
+![Travis (.com)](https://img.shields.io/travis/com/marciopaiva/molecule-systemd-images)
+![GitHub last commit](https://img.shields.io/github/last-commit/marciopaiva/molecule-systemd-images)
+![GitHub](https://img.shields.io/github/license/marciopaiva/molecule-systemd-images)
+
 Base container images for testing using Ansible Molecule test framework
 
 ## About Ansible Molecule
@@ -26,6 +30,11 @@ Molecule encourages an approach that results in consistently developed roles tha
   * [Fedora](https://hub.docker.com/r/mpaivabarbosa/molecule-systemd-fedora)
     * `latest`, `32`
     * `31`
+
+  * [Ubuntu](https://hub.docker.com/r/mpaivabarbosa/molecule-systemd-ubuntu)
+    * `latest`, `20.04`
+    * `19.10`
+    * `18.04`
 
 ## How to Use
 
