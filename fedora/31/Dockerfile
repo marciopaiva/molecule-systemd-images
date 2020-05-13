@@ -1,27 +1,31 @@
-FROM debian:stretch
+FROM fedora:31
 
-LABEL summary="Molecule Systemd Debian" \
-      name="mpaivabarbosa/molecule-systemd-debian" \
+LABEL summary="Molecule Systemd Fedora" \
+      name="mpaivabarbosa/molecule-systemd-fedora" \
       maintainer="Marcio Barbosa <mpaivabarbosa@gmail.com>"
 
 ENV container docker
-ENV LC_ALL C
-ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update -y && \
-    apt-get install -y --no-install-recommends systemd systemd-cron python sudo bash ca-certificates && \
+RUN dnf makecache --time && \
+    dnf update -y && \
+    dnf install -y --setopt=tsflags=nodocs systemd python3 python3-devel python*-dnf sudo bash iproute && \ 
     rm -Rf /usr/share/doc && \
     rm -Rf /usr/share/man && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    dnf clean all --enablerepo='*'
+
+RUN cd /lib/systemd/system/sysinit.target.wants/; \
+    for i in *; do [ $i = systemd-tmpfiles-setup.service ] || rm -f $i; done
 
 RUN rm -f /lib/systemd/system/multi-user.target.wants/* \
     /etc/systemd/system/*.wants/* \
     /lib/systemd/system/local-fs.target.wants/* \
     /lib/systemd/system/sockets.target.wants/*udev* \
     /lib/systemd/system/sockets.target.wants/*initctl* \
-    /lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup* \
-    /lib/systemd/system/systemd-update-utmp*
+    /lib/systemd/system/basic.target.wants/* \
+    /lib/systemd/system/anaconda.target.wants/*
+
+# Disable requiretty.
+RUN sed -i -e 's/^\(Defaults\s*requiretty\)/#--- \1/'  /etc/sudoers
 
 # Custom bashrc
 RUN printf "# .bashrc \n\n\
@@ -36,4 +40,4 @@ fi \n\
 
 VOLUME [ "/sys/fs/cgroup", "/tmp", "/run" ]
 
-CMD [ "/lib/systemd/systemd" ]
+CMD [ "/usr/sbin/init" ]

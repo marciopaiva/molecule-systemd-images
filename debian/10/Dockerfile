@@ -1,14 +1,19 @@
 FROM debian:buster
 
+LABEL summary="Molecule Systemd Debian" \
+      name="mpaivabarbosa/molecule-systemd-debian" \
+      maintainer="Marcio Barbosa <mpaivabarbosa@gmail.com>"
+
 ENV container docker
 ENV LC_ALL C
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends systemd systemd-cron python sudo bash ca-certificates \
-    && rm -Rf /usr/share/doc && rm -Rf /usr/share/man \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apt-get update -y && \
+    apt-get install -y --no-install-recommends systemd systemd-cron python sudo bash ca-certificates && \
+    rm -Rf /usr/share/doc && \
+    rm -Rf /usr/share/man && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN rm -f /lib/systemd/system/multi-user.target.wants/* \
     /etc/systemd/system/*.wants/* \
@@ -29,6 +34,6 @@ if [ -f /etc/bashrc ]; then \n\
 fi \n\
 " > /root/.bashrc
 
-VOLUME ["/sys/fs/cgroup", "/tmp", "/run"]
+VOLUME [ "/sys/fs/cgroup", "/tmp", "/run" ]
 
-CMD ["/lib/systemd/systemd"]
+CMD [ "/lib/systemd/systemd" ]

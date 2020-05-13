@@ -1,10 +1,18 @@
 FROM centos:7
 
-LABEL maintainer="Marcio Barbosa"
+LABEL summary="Molecule Systemd CentOS" \
+      name="mpaivabarbosa/molecule-systemd-centos" \
+      maintainer="Marcio Barbosa <mpaivabarbosa@gmail.com>"
 
 ENV container docker
 
-RUN yum makecache  && yum install -y python3 sudo bash && yum clean all
+RUN yum makecache fast && \
+    yum update -y && \
+    yum install -y --setopt=tsflags=nodocs **systemd** python3 yum-plugin-ovl sudo bash iproute && \ 
+    sed -i 's/plugins=0/plugins=1/g' /etc/yum.conf && \
+    rm -Rf /usr/share/doc && \
+    rm -Rf /usr/share/man && \
+    yum clean all --enablerepo='*'
 
 RUN cd /lib/systemd/system/sysinit.target.wants/; \
     for i in *; do [ $i = systemd-tmpfiles-setup.service ] || rm -f $i; done
@@ -31,6 +39,6 @@ if [ -f /etc/bashrc ]; then \n\
 fi \n\
 " > /root/.bashrc
 
-VOLUME [ "/sys/fs/cgroup" ]
+VOLUME [ "/sys/fs/cgroup", "/tmp", "/run" ]
 
-CMD ["/usr/sbin/init"]
+CMD [ "/usr/sbin/init" ]
