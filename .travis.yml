@@ -1,0 +1,15 @@
+dist: bionic
+language: python
+python:
+  - "3.8.0"
+
+services:
+  - docker
+
+jobs:
+  include:
+    - stage: Build Images
+      script:
+      - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+      - docker info
+      - make build

@@ -6,7 +6,8 @@ LABEL summary="Molecule Systemd Fedora" \
 
 ENV container docker
 
-RUN dnf update -y && \
+RUN dnf makecache --time && \
+    dnf update -y && \
     dnf install -y --setopt=tsflags=nodocs systemd python3 python3-devel python*-dnf sudo bash iproute && \ 
     rm -Rf /usr/share/doc && \
     rm -Rf /usr/share/man && \
