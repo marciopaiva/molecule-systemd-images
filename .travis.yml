@@ -8,12 +8,11 @@ services:
 
 jobs:
   include:
-    - stage: Build Images
+    - stage: Build and Release Images
       script:
+      - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
       - docker info
       - make build
       - docker images
-    - stage: Release Images
-      script:
-      - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
       - make release
+ 
