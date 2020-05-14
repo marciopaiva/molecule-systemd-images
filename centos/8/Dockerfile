@@ -4,11 +4,9 @@ LABEL summary="Molecule Systemd CentOS" \
       name="mpaivabarbosa/molecule-systemd-centos" \
       maintainer="Marcio Barbosa <mpaivabarbosa@gmail.com>"
 
-ENV container docker
-
 RUN dnf makecache --time && \
     dnf update -y && \
-    dnf install -y --setopt=tsflags=nodocs python3 python3-devel python*-dnf sudo bash iproute && \ 
+    dnf install -y --setopt=tsflags=nodocs python3 python3-devel python*-dnf sudo bash vim iproute && \ 
     rm -Rf /usr/share/doc && \
     rm -Rf /usr/share/man && \
     dnf clean all --enablerepo='*'
@@ -27,8 +25,18 @@ RUN rm -f /lib/systemd/system/multi-user.target.wants/* \
 # Disable requiretty.
 RUN sed -i -e 's/^\(Defaults\s*requiretty\)/#--- \1/'  /etc/sudoers
 
+# Create `ansible` user with sudo permissions
+ENV ANSIBLE_USER=ansible SUDO_GROUP=wheel
+RUN set -xe && \
+    groupadd -r ${ANSIBLE_USER} && \ 
+    useradd -m -g ${ANSIBLE_USER} ${ANSIBLE_USER} && \
+    usermod -aG ${SUDO_GROUP} ${ANSIBLE_USER} && \
+    sed -i "/^%${SUDO_GROUP}/s/ALL\$/NOPASSWD:ALL/g" /etc/sudoers
+
 # Custom bashrc
 RUN printf "# .bashrc \n\n\
+alias pip=pip3 \n\
+alias python=python3 \n\
 alias ll='ls -l --color=auto' \n\
 alias rm='rm -i' \n\
 alias cp='cp -i' \n\

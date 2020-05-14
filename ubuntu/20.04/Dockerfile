@@ -4,12 +4,8 @@ LABEL summary="Molecule Systemd Ubuntu" \
       name="mpaivabarbosa/molecule-systemd-ubuntu" \
       maintainer="Marcio Barbosa <mpaivabarbosa@gmail.com>"
 
-ENV container docker
-ENV LC_ALL C
-ENV DEBIAN_FRONTEND noninteractive
-
 RUN apt-get update -y && \
-    apt-get install -y --no-install-recommends systemd systemd-cron python sudo bash ca-certificates && \
+    apt-get install -y --no-install-recommends systemd systemd-cron python3 python3-pip sudo bash vim ca-certificates && \
     rm -Rf /usr/share/doc && \
     rm -Rf /usr/share/man && \
     apt-get clean && \
@@ -23,8 +19,21 @@ RUN rm -f /lib/systemd/system/multi-user.target.wants/* \
     /lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup* \
     /lib/systemd/system/systemd-update-utmp*
 
+# Disable requiretty.
+RUN sed -i -e 's/^\(Defaults\s*requiretty\)/#--- \1/'  /etc/sudoers
+
+# Create `ansible` user with sudo permissions
+ENV ANSIBLE_USER=ansible SUDO_GROUP=sudo
+RUN set -xe && \
+    groupadd -r ${ANSIBLE_USER} && \ 
+    useradd -m -g ${ANSIBLE_USER} ${ANSIBLE_USER} && \
+    usermod -aG ${SUDO_GROUP} ${ANSIBLE_USER} && \
+    sed -i "/^%${SUDO_GROUP}/s/ALL\$/NOPASSWD:ALL/g" /etc/sudoers
+
 # Custom bashrc
 RUN printf "# .bashrc \n\n\
+alias pip=pip3 \n\
+alias python=python3 \n\
 alias ll='ls -l --color=auto' \n\
 alias rm='rm -i' \n\
 alias cp='cp -i' \n\

@@ -38,7 +38,7 @@ Molecule encourages an approach that results in consistently developed roles tha
 
 ## How to Use
 
-Edit the `platforms` section of file `molecule/default/molecule.yml`:
+To use these images edit the `platforms` section of file `molecule/default/molecule.yml` as follows.
 
 ``` yml
 ...
@@ -53,6 +53,54 @@ platforms:
   pre_build_image: true
   override_command: false
 
+- name: centos-8
+  hostname: centos
+  image: mpaivabarbosa/molecule-systemd-centos:8
+  volumes:
+    - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  privileged: true
+  pre_build_image: true
+  override_command: false
+
+- name: debian-10
+  hostname: debian
+  image: mpaivabarbosa/molecule-systemd-debian:10
+  volumes:
+    - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  privileged: true
+  pre_build_image: true
+  override_command: false
+
+- name: fedora-32
+  hostname: fedora
+  image: mpaivabarbosa/molecule-systemd-fedora:32
+  volumes:
+    - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  privileged: true
+  pre_build_image: true
+  override_command: false
+
+- name: ubuntu-20
+  hostname: ubuntu
+  image: mpaivabarbosa/molecule-systemd-ubuntu:20.04
+  volumes:
+    - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  privileged: true
+  pre_build_image: true
+  override_command: false
+
+...
+```
+
+The default Molecule Docker driver executes Ansible playbooks as the `root` user. If your workflow requires a non-privileged user, edit the `provisioner` section of file `molecule/default/molecule.yml` as follows.
+
+``` yml
+...
+provisioner:
+  name: ansible
+  config_options:
+    defaults:
+      remote_user: ansible
 ...
 ```
 
