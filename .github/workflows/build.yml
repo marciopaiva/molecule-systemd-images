@@ -1,0 +1,119 @@
+name: Build and Push Container Images
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  schedule:
+    - cron: '0 2 * * 0'  # Weekly on Sunday at 2 AM
+
+env:
+  REGISTRY: docker.io
+  NAMESPACE: mpaivabarbosa
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - os: amazonlinux
+            version: "2"
+          - os: amazonlinux
+            version: "2023"
+          - os: centos
+            version: "7"
+          - os: centos
+            version: "8"
+          - os: rockylinux
+            version: "8"
+          - os: rockylinux
+            version: "9"
+          - os: almalinux
+            version: "8"
+          - os: almalinux
+            version: "9"
+          - os: debian
+            version: "9"
+          - os: debian
+            version: "10"
+          - os: debian
+            version: "11"
+          - os: debian
+            version: "12"
+          - os: fedora
+            version: "31"
+          - os: fedora
+            version: "32"
+          - os: fedora
+            version: "36"
+          - os: fedora
+            version: "37"
+          - os: fedora
+            version: "38"
+          - os: fedora
+            version: "39"
+          - os: fedora
+            version: "40"
+          - os: ubuntu
+            version: "18.04"
+          - os: ubuntu
+            version: "19.10"
+          - os: ubuntu
+            version: "20.04"
+          - os: ubuntu
+            version: "21.04"
+          - os: ubuntu
+            version: "22.04"
+          - os: ubuntu
+            version: "23.04"
+          - os: ubuntu
+            version: "24.04"
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Set up Podman
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y podman
+
+    - name: Log in to Registry
+      if: github.event_name != 'pull_request'
+      run: |
+        echo "${{ secrets.REGISTRY_PASSWORD }}" | podman login ${{ env.REGISTRY }} -u "${{ secrets.REGISTRY_USERNAME }}" --password-stdin
+
+    - name: Build image
+      run: |
+        # Determine image path based on OS family
+        if [[ "${{ matrix.os }}" =~ ^(amazonlinux|centos|rockylinux|almalinux)$ ]]; then
+          IMAGE_PATH="images/rhel-family/${{ matrix.os }}/${{ matrix.version }}"
+        elif [[ "${{ matrix.os }}" =~ ^(debian|ubuntu)$ ]]; then
+          IMAGE_PATH="images/debian-family/${{ matrix.os }}/${{ matrix.version }}"
+        elif [[ "${{ matrix.os }}" == "fedora" ]]; then
+          IMAGE_PATH="images/fedora/${{ matrix.version }}"
+        fi
+        
+        cd "${IMAGE_PATH}"
+        podman build -t ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/molecule-systemd-${{ matrix.os }}:${{ matrix.version }} .
+
+    - name: Tag latest
+      if: |
+        (matrix.os == 'amazonlinux' && matrix.version == '2023') ||
+        (matrix.os == 'rockylinux' && matrix.version == '9') ||
+        (matrix.os == 'almalinux' && matrix.version == '9') ||
+        (matrix.os == 'debian' && matrix.version == '12') ||
+        (matrix.os == 'fedora' && matrix.version == '40') ||
+        (matrix.os == 'ubuntu' && matrix.version == '24.04')
+      run: |
+        podman tag ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/molecule-systemd-${{ matrix.os }}:${{ matrix.version }} ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/molecule-systemd-${{ matrix.os }}:latest
+
+    - name: Push image
+      if: github.event_name != 'pull_request'
+      run: |
+        podman push ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/molecule-systemd-${{ matrix.os }}:${{ matrix.version }}
+        if podman images --format "{{.Repository}}:{{.Tag}}" | grep -q "${{ env.REGISTRY }}/${{ env.NAMESPACE }}/molecule-systemd-${{ matrix.os }}:latest"; then
+          podman push ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/molecule-systemd-${{ matrix.os }}:latest
+        fi

@@ -1,0 +1,101 @@
+---
+dependency:
+  name: galaxy
+  options:
+    requirements-file: requirements.yml
+
+driver:
+  name: containers
+
+platforms:
+  # Modern distributions (recommended)
+  - name: amazonlinux-2023
+    hostname: amazonlinux
+    image: quay.io/mpaivabarbosa/molecule-systemd-amazonlinux:2023
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+    override_command: false
+
+  - name: rockylinux-9
+    hostname: rockylinux
+    image: quay.io/mpaivabarbosa/molecule-systemd-rockylinux:9
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+    override_command: false
+
+  - name: almalinux-9
+    hostname: almalinux
+    image: quay.io/mpaivabarbosa/molecule-systemd-almalinux:9
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+    override_command: false
+
+  - name: debian-12
+    hostname: debian
+    image: quay.io/mpaivabarbosa/molecule-systemd-debian:12
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+    override_command: false
+
+  - name: ubuntu-24
+    hostname: ubuntu
+    image: quay.io/mpaivabarbosa/molecule-systemd-ubuntu:24.04
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+    override_command: false
+
+  - name: fedora-40
+    hostname: fedora
+    image: quay.io/mpaivabarbosa/molecule-systemd-fedora:40
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+    override_command: false
+
+  # Legacy distributions (for compatibility)
+  - name: centos-8
+    hostname: centos8
+    image: quay.io/mpaivabarbosa/molecule-systemd-centos:8
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+    override_command: false
+
+provisioner:
+  name: ansible
+  config_options:
+    defaults:
+      remote_user: ansible
+      host_key_checking: false
+    ssh_connection:
+      pipelining: true
+
+verifier:
+  name: ansible
+
+scenario:
+  test_sequence:
+    - dependency
+    - cleanup
+    - destroy
+    - syntax
+    - create
+    - prepare
+    - converge
+    - idempotence
+    - side_effect
+    - verify
+    - cleanup
+    - destroy

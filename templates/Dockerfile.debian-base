@@ -1,0 +1,37 @@
+# Base template for Debian-family distributions
+# Usage: FROM <base_image>
+# Variables: BASE_IMAGE, PACKAGE_MANAGER, PACKAGES
+
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
+
+# Prevent interactive prompts
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install systemd and essential packages
+RUN ${PACKAGE_UPDATE} && \
+    ${PACKAGE_INSTALL} \
+        systemd \
+        python3 \
+        python3-pip \
+        sudo \
+        bash \
+        vim \
+        iproute2 \
+        procps \
+        ${EXTRA_PACKAGES} && \
+    ${PACKAGE_CLEANUP}
+
+# Create ansible user
+RUN useradd -m -s /bin/bash ansible && \
+    echo 'ansible ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/ansible
+
+# Configure systemd
+RUN systemctl set-default multi-user.target && \
+    systemctl mask dev-hugepages.mount sys-fs-fuse-connections.mount
+
+# Set working directory
+WORKDIR /
+
+# Default command
+CMD ["/usr/sbin/init"]

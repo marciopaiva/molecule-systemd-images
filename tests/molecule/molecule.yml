@@ -1,0 +1,24 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: containers
+
+platforms:
+  - name: test-ubuntu
+    image: mpaivabarbosa/molecule-systemd-ubuntu:24.04
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    pre_build_image: true
+    override_command: false
+
+provisioner:
+  name: ansible
+  config_options:
+    defaults:
+      remote_user: ansible
+
+verifier:
+  name: ansible
