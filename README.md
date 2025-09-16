@@ -35,7 +35,7 @@ Molecule encourages an approach that results in consistently developed roles tha
 
 ## Supported Images
 
-**34 container images** across **6 distributions** with **25+ versions**:
+**37 container images** across **6 distributions** with **28 versions**:
 
 > All images are automatically built and tested via GitHub Actions, ensuring reliability and consistency.
 
@@ -55,12 +55,12 @@ Molecule encourages an approach that results in consistently developed roles tha
     * `8`
 
   * **[Debian](https://hub.docker.com/r/mpaivabarbosa/molecule-systemd-debian)**
-    * `latest`, `12`
-    * `11`, `10`, `9`
+    * `latest`, `13`
+    * `12`, `11`, `10`, `9`
 
   * **[Fedora](https://hub.docker.com/r/mpaivabarbosa/molecule-systemd-fedora)**
-    * `latest`, `40`
-    * `39`, `38`, `37`, `36`, `32`, `31`
+    * `latest`, `42`
+    * `41`, `40`, `39`, `38`, `37`, `36`, `32`, `31`
 
   * **[Ubuntu](https://hub.docker.com/r/mpaivabarbosa/molecule-systemd-ubuntu)**
     * `latest`, `24.04`
@@ -106,18 +106,18 @@ platforms:
   pre_build_image: true
   override_command: false
 
-- name: debian-12
+- name: debian-13
   hostname: debian
-  image: mpaivabarbosa/molecule-systemd-debian:12
+  image: mpaivabarbosa/molecule-systemd-debian:13
   volumes:
     - /sys/fs/cgroup:/sys/fs/cgroup:ro
   privileged: true
   pre_build_image: true
   override_command: false
 
-- name: fedora-40
+- name: fedora-42
   hostname: fedora
-  image: mpaivabarbosa/molecule-systemd-fedora:40
+  image: mpaivabarbosa/molecule-systemd-fedora:42
   volumes:
     - /sys/fs/cgroup:/sys/fs/cgroup:ro
   privileged: true

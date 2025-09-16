@@ -71,7 +71,8 @@ debian:
 	cd ./images/debian-family/debian/10 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-debian:10 .
 	cd ./images/debian-family/debian/11 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-debian:11 .
 	cd ./images/debian-family/debian/12 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-debian:12 .
-	$(CONTAINER_ENGINE) tag $(REGISTRY)/$(NAMESPACE)/molecule-systemd-debian:12 $(REGISTRY)/$(NAMESPACE)/molecule-systemd-debian:latest
+	cd ./images/debian-family/debian/13 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-debian:13 .
+	$(CONTAINER_ENGINE) tag $(REGISTRY)/$(NAMESPACE)/molecule-systemd-debian:13 $(REGISTRY)/$(NAMESPACE)/molecule-systemd-debian:latest
 
 fedora:
 	cd ./images/fedora/31 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-fedora:31 .
@@ -81,7 +82,9 @@ fedora:
 	cd ./images/fedora/38 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-fedora:38 .
 	cd ./images/fedora/39 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-fedora:39 .
 	cd ./images/fedora/40 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-fedora:40 .
-	$(CONTAINER_ENGINE) tag $(REGISTRY)/$(NAMESPACE)/molecule-systemd-fedora:40 $(REGISTRY)/$(NAMESPACE)/molecule-systemd-fedora:latest
+	cd ./images/fedora/41 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-fedora:41 .
+	cd ./images/fedora/42 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-fedora:42 .
+	$(CONTAINER_ENGINE) tag $(REGISTRY)/$(NAMESPACE)/molecule-systemd-fedora:42 $(REGISTRY)/$(NAMESPACE)/molecule-systemd-fedora:latest
 
 ubuntu:
 	cd ./images/debian-family/ubuntu/18.04 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-ubuntu:18.04 .

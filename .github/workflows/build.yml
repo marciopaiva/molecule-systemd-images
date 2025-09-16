@@ -42,6 +42,8 @@ jobs:
             version: "11"
           - os: debian
             version: "12"
+          - os: debian
+            version: "13"
           - os: fedora
             version: "31"
           - os: fedora
@@ -56,6 +58,10 @@ jobs:
             version: "39"
           - os: fedora
             version: "40"
+          - os: fedora
+            version: "41"
+          - os: fedora
+            version: "42"
           - os: ubuntu
             version: "18.04"
           - os: ubuntu
@@ -104,8 +110,8 @@ jobs:
         (matrix.os == 'amazonlinux' && matrix.version == '2023') ||
         (matrix.os == 'rockylinux' && matrix.version == '9') ||
         (matrix.os == 'almalinux' && matrix.version == '9') ||
-        (matrix.os == 'debian' && matrix.version == '12') ||
-        (matrix.os == 'fedora' && matrix.version == '40') ||
+        (matrix.os == 'debian' && matrix.version == '13') ||
+        (matrix.os == 'fedora' && matrix.version == '42') ||
         (matrix.os == 'ubuntu' && matrix.version == '24.04')
       run: |
         podman tag ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/molecule-systemd-${{ matrix.os }}:${{ matrix.version }} ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/molecule-systemd-${{ matrix.os }}:latest
