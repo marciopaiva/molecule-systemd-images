@@ -123,3 +123,13 @@ jobs:
         if podman images --format "{{.Repository}}:{{.Tag}}" | grep -q "${{ env.REGISTRY }}/${{ env.NAMESPACE }}/molecule-systemd-${{ matrix.os }}:latest"; then
           podman push ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/molecule-systemd-${{ matrix.os }}:latest
         fi
+
+    - name: Update Docker Hub description
+      if: github.event_name != 'pull_request' && matrix.version == 'latest' || (matrix.os == 'amazonlinux' && matrix.version == '2023') || (matrix.os == 'rockylinux' && matrix.version == '9') || (matrix.os == 'almalinux' && matrix.version == '9') || (matrix.os == 'debian' && matrix.version == '13') || (matrix.os == 'fedora' && matrix.version == '42') || (matrix.os == 'ubuntu' && matrix.version == '24.04')
+      uses: peter-evans/dockerhub-description@v4
+      with:
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+        repository: ${{ env.NAMESPACE }}/molecule-systemd-${{ matrix.os }}
+        short-description: "Systemd-enabled ${{ matrix.os }} container for Ansible Molecule testing with Python 3 and sudo user"
+        readme-filepath: ./README.md
