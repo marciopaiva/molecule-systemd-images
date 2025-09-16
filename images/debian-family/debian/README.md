@@ -5,7 +5,8 @@ Container images for testing Ansible roles with Molecule using Debian distributi
 ## Available Tags
 
 **Current Releases:**
-- `latest`, `12` - Debian 12 Bookworm (recommended)
+- `latest`, `13` - Debian 13 Trixie (recommended)
+- `12` - Debian 12 Bookworm
 - `11` - Debian 11 Bullseye
 - `10` - Debian 10 Buster
 
@@ -16,8 +17,8 @@ Container images for testing Ansible roles with Molecule using Debian distributi
 
 ```yaml
 platforms:
-  - name: debian-12
-    image: mpaivabarbosa/molecule-systemd-debian:12
+  - name: debian-13
+    image: mpaivabarbosa/molecule-systemd-debian:13
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true

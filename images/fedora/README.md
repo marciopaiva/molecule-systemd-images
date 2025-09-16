@@ -5,7 +5,9 @@ Container images for testing Ansible roles with Molecule using Fedora distributi
 ## Available Tags
 
 **Current Releases:**
-- `latest`, `40` - Fedora 40 (recommended)
+- `latest`, `42` - Fedora 42 (recommended)
+- `41` - Fedora 41
+- `40` - Fedora 40
 - `39` - Fedora 39
 - `38` - Fedora 38
 - `37` - Fedora 37
@@ -19,8 +21,8 @@ Container images for testing Ansible roles with Molecule using Fedora distributi
 
 ```yaml
 platforms:
-  - name: fedora-40
-    image: mpaivabarbosa/molecule-systemd-fedora:40
+  - name: fedora-42
+    image: mpaivabarbosa/molecule-systemd-fedora:42
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
