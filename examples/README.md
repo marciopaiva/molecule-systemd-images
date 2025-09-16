@@ -32,7 +32,7 @@ Complete example configuration file showing:
 ## Platform Selection
 
 **For comprehensive testing:**
-- Use all 6 modern distributions
+- Use all 6 distribution families (29 total images)
 - Covers major Linux families (RHEL, Debian, Fedora)
 
 **For focused testing:**

@@ -12,7 +12,7 @@ Container images for testing Ansible roles with Molecule using Amazon Linux dist
 ```yaml
 platforms:
   - name: amazonlinux-2023
-    image: quay.io/mpaivabarbosa/molecule-systemd-amazonlinux:2023
+    image: mpaivabarbosa/molecule-systemd-amazonlinux:2023
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true

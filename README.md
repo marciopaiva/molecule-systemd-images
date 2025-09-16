@@ -1,8 +1,18 @@
 # Molecule Systemd Images
 
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/marciopaiva/molecule-systemd-images/build.yml)
-![GitHub last commit](https://img.shields.io/github/last-commit/marciopaiva/molecule-systemd-images)
-![GitHub](https://img.shields.io/github/license/marciopaiva/molecule-systemd-images)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/marciopaiva/molecule-systemd-images/build.yml?logo=github&label=build)
+![GitHub Release](https://img.shields.io/github/v/release/marciopaiva/molecule-systemd-images?logo=github&label=release)
+![GitHub last commit](https://img.shields.io/github/last-commit/marciopaiva/molecule-systemd-images?logo=github)
+![GitHub](https://img.shields.io/github/license/marciopaiva/molecule-systemd-images?logo=github)
+
+![Docker Pulls](https://img.shields.io/docker/pulls/mpaivabarbosa/molecule-systemd-ubuntu?logo=docker&label=docker%20pulls)
+![Docker Image Size](https://img.shields.io/docker/image-size/mpaivabarbosa/molecule-systemd-ubuntu/latest?logo=docker&label=image%20size)
+![Supported Platforms](https://img.shields.io/badge/platforms-29%20images-blue?logo=docker)
+![Distributions](https://img.shields.io/badge/distributions-6%20families-green?logo=linux)
+
+![Ansible](https://img.shields.io/badge/ansible-molecule%20ready-red?logo=ansible)
+![Podman](https://img.shields.io/badge/podman-supported-purple?logo=podman)
+![Systemd](https://img.shields.io/badge/systemd-enabled-orange?logo=systemd)
 
 Base container images for testing using Ansible Molecule test framework with Podman support.
 
@@ -35,7 +45,7 @@ Molecule encourages an approach that results in consistently developed roles tha
 
 ## Supported Images
 
-**37 container images** across **6 distributions** with **28 versions**:
+**29 container images** across **6 distributions** with **29 versions**:
 
 > All images are automatically built and tested via GitHub Actions, ensuring reliability and consistency.
 

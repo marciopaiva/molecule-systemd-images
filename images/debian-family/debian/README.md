@@ -17,7 +17,7 @@ Container images for testing Ansible roles with Molecule using Debian distributi
 ```yaml
 platforms:
   - name: debian-12
-    image: quay.io/mpaivabarbosa/molecule-systemd-debian:12
+    image: mpaivabarbosa/molecule-systemd-debian:12
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true

@@ -12,7 +12,7 @@ Rocky Linux is a community enterprise operating system designed to be 100% bug-f
 ```yaml
 platforms:
   - name: rockylinux-9
-    image: quay.io/mpaivabarbosa/molecule-systemd-rockylinux:9
+    image: mpaivabarbosa/molecule-systemd-rockylinux:9
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true

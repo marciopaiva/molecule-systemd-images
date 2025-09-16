@@ -12,7 +12,7 @@ AlmaLinux is an open-source, community-driven Linux operating system that fills 
 ```yaml
 platforms:
   - name: almalinux-9
-    image: quay.io/mpaivabarbosa/molecule-systemd-almalinux:9
+    image: mpaivabarbosa/molecule-systemd-almalinux:9
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true

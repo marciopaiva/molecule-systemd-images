@@ -14,7 +14,7 @@ Container images for testing Ansible roles with Molecule using CentOS distributi
 ```yaml
 platforms:
   - name: centos-8
-    image: quay.io/mpaivabarbosa/molecule-systemd-centos:8
+    image: mpaivabarbosa/molecule-systemd-centos:8
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true

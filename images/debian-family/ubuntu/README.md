@@ -20,7 +20,7 @@ Container images for testing Ansible roles with Molecule using Ubuntu distributi
 ```yaml
 platforms:
   - name: ubuntu-24
-    image: quay.io/mpaivabarbosa/molecule-systemd-ubuntu:24.04
+    image: mpaivabarbosa/molecule-systemd-ubuntu:24.04
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
