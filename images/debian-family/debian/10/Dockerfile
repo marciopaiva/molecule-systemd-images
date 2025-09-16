@@ -8,7 +8,7 @@ RUN sed -i 's|deb.debian.org|archive.debian.org|g' /etc/apt/sources.list && \
     sed -i '/security/d' /etc/apt/sources.list && \
     apt-get update -y && \
     apt-get install -y --no-install-recommends --allow-downgrades libsystemd0=241-7~deb10u8 && \
-    apt-get install -y --no-install-recommends --allow-downgrades systemd=241-7~deb10u8 systemd-cron python3 python3-pip sudo bash vim ca-certificates iproute2 && \
+    apt-get install -y --no-install-recommends --allow-downgrades systemd=241-7~deb10u8 systemd-cron python3 python3-pip python3-apt sudo bash vim ca-certificates iproute2 && \
     rm -Rf /usr/share/doc && \
     rm -Rf /usr/share/man && \
     apt-get clean && \

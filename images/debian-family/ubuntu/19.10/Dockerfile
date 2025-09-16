@@ -8,7 +8,7 @@ RUN sed -i 's|archive.ubuntu.com|old-releases.ubuntu.com|g' /etc/apt/sources.lis
     sed -i 's|security.ubuntu.com|old-releases.ubuntu.com|g' /etc/apt/sources.list && \
     sed -i 's/# deb/deb/g' /etc/apt/sources.list && \
     apt-get update -y && \
-    apt-get install -y --no-install-recommends apt-utils systemd systemd-cron python3 python3-pip sudo bash vim ca-certificates iproute2 && \
+    apt-get install -y --no-install-recommends apt-utils systemd systemd-cron python3 python3-pip python3-apt sudo bash vim ca-certificates iproute2 && \
     rm -Rf /usr/share/doc && \
     rm -Rf /usr/share/man && \
     apt-get clean && \

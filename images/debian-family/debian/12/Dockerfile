@@ -5,7 +5,7 @@ LABEL summary="Molecule Systemd Debian 12" \
       maintainer="Marcio Barbosa <mpaivabarbosa@gmail.com>"
 
 RUN apt-get update -y && \
-    apt-get install -y --no-install-recommends systemd systemd-cron python3 python3-pip sudo bash vim ca-certificates iproute2 && \
+    apt-get install -y --no-install-recommends systemd systemd-cron python3 python3-pip python3-apt sudo bash vim ca-certificates iproute2 && \
     rm -Rf /usr/share/doc && \
     rm -Rf /usr/share/man && \
     apt-get clean && \
