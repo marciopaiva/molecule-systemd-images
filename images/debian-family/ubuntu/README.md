@@ -1,6 +1,13 @@
 # Ubuntu Images
 
+![Docker Pulls](https://img.shields.io/docker/pulls/mpaivabarbosa/molecule-systemd-ubuntu?logo=docker&label=pulls)
+![Docker Image Size](https://img.shields.io/docker/image-size/mpaivabarbosa/molecule-systemd-ubuntu/latest?logo=docker&label=size)
+![Ubuntu](https://img.shields.io/badge/ubuntu-24.04%20LTS-orange?logo=ubuntu)
+![Systemd](https://img.shields.io/badge/systemd-enabled-green?logo=systemd)
+
 Container images for testing Ansible roles with Molecule using Ubuntu distributions.
+
+**Repository:** https://github.com/marciopaiva/molecule-systemd-images
 
 ## Available Tags
 

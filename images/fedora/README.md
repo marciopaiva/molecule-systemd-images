@@ -1,6 +1,13 @@
 # Fedora Images
 
+![Docker Pulls](https://img.shields.io/docker/pulls/mpaivabarbosa/molecule-systemd-fedora?logo=docker&label=pulls)
+![Docker Image Size](https://img.shields.io/docker/image-size/mpaivabarbosa/molecule-systemd-fedora/latest?logo=docker&label=size)
+![Fedora](https://img.shields.io/badge/fedora-42-blue?logo=fedora)
+![Systemd](https://img.shields.io/badge/systemd-enabled-green?logo=systemd)
+
 Container images for testing Ansible roles with Molecule using Fedora distributions.
+
+**Repository:** https://github.com/marciopaiva/molecule-systemd-images
 
 ## Available Tags
 

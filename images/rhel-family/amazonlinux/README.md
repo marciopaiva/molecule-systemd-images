@@ -1,6 +1,13 @@
 # Amazon Linux Images
 
+![Docker Pulls](https://img.shields.io/docker/pulls/mpaivabarbosa/molecule-systemd-amazonlinux?logo=docker&label=pulls)
+![Docker Image Size](https://img.shields.io/docker/image-size/mpaivabarbosa/molecule-systemd-amazonlinux/latest?logo=docker&label=size)
+![Amazon Linux](https://img.shields.io/badge/amazon%20linux-2023-orange?logo=amazon)
+![Systemd](https://img.shields.io/badge/systemd-enabled-green?logo=systemd)
+
 Container images for testing Ansible roles with Molecule using Amazon Linux distributions.
+
+**Repository:** https://github.com/marciopaiva/molecule-systemd-images
 
 ## Available Tags
 

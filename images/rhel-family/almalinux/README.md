@@ -1,6 +1,13 @@
 # AlmaLinux Images
 
+![Docker Pulls](https://img.shields.io/docker/pulls/mpaivabarbosa/molecule-systemd-almalinux?logo=docker&label=pulls)
+![Docker Image Size](https://img.shields.io/docker/image-size/mpaivabarbosa/molecule-systemd-almalinux/latest?logo=docker&label=size)
+![AlmaLinux](https://img.shields.io/badge/almalinux-9-lightblue?logo=almalinux)
+![Systemd](https://img.shields.io/badge/systemd-enabled-green?logo=systemd)
+
 AlmaLinux is an open-source, community-driven Linux operating system that fills the gap left by the discontinuation of the CentOS Linux stable release.
+
+**Repository:** https://github.com/marciopaiva/molecule-systemd-images
 
 ## Available Tags
 

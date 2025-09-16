@@ -1,6 +1,13 @@
 # Rocky Linux Images
 
+![Docker Pulls](https://img.shields.io/docker/pulls/mpaivabarbosa/molecule-systemd-rockylinux?logo=docker&label=pulls)
+![Docker Image Size](https://img.shields.io/docker/image-size/mpaivabarbosa/molecule-systemd-rockylinux/latest?logo=docker&label=size)
+![Rocky Linux](https://img.shields.io/badge/rocky%20linux-9-blue?logo=rockylinux)
+![Systemd](https://img.shields.io/badge/systemd-enabled-green?logo=systemd)
+
 Rocky Linux is a community enterprise operating system designed to be 100% bug-for-bug compatible with Red Hat Enterprise Linux.
+
+**Repository:** https://github.com/marciopaiva/molecule-systemd-images
 
 ## Available Tags
 

@@ -1,6 +1,13 @@
 # Debian Images
 
+![Docker Pulls](https://img.shields.io/docker/pulls/mpaivabarbosa/molecule-systemd-debian?logo=docker&label=pulls)
+![Docker Image Size](https://img.shields.io/docker/image-size/mpaivabarbosa/molecule-systemd-debian/latest?logo=docker&label=size)
+![Debian](https://img.shields.io/badge/debian-13-red?logo=debian)
+![Systemd](https://img.shields.io/badge/systemd-enabled-green?logo=systemd)
+
 Container images for testing Ansible roles with Molecule using Debian distributions.
+
+**Repository:** https://github.com/marciopaiva/molecule-systemd-images
 
 ## Available Tags
 
