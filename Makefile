@@ -10,9 +10,10 @@
 #   - Amazon Linux (2, 2023)
 #   - CentOS (7, 8) - Legacy
 #   - Rocky Linux (8, 9)
-#   - AlmaLinux (8, 9)
-#   - Debian (9, 10, 11, 12)
-#   - Fedora (31, 32, 36-40)
+#   - AlmaLinux (8, 9, 10)
+#   - Oracle Linux (8, 9, 10)
+#   - Debian (9, 10, 11, 12, 13)
+#   - Fedora (31, 32, 36-42)
 #   - Ubuntu (18.04, 19.10, 20.04, 21.04, 22.04, 23.04, 24.04)
 #
 # Usage:
@@ -27,7 +28,7 @@ REGISTRY ?= docker.io
 NAMESPACE ?= mpaivabarbosa
 
 # Build all images
-build: amazonlinux centos rockylinux almalinux debian fedora ubuntu
+build: amazonlinux centos rockylinux almalinux oraclelinux debian fedora ubuntu
 
 
 
@@ -66,6 +67,12 @@ almalinux:
 	cd ./images/rhel-family/almalinux/9 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-almalinux:9 .
 	cd ./images/rhel-family/almalinux/10 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-almalinux:10 .
 	$(CONTAINER_ENGINE) tag $(REGISTRY)/$(NAMESPACE)/molecule-systemd-almalinux:10 $(REGISTRY)/$(NAMESPACE)/molecule-systemd-almalinux:latest
+
+oraclelinux:
+	cd ./images/rhel-family/oraclelinux/8 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-oraclelinux:8 .
+	cd ./images/rhel-family/oraclelinux/9 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-oraclelinux:9 .
+	cd ./images/rhel-family/oraclelinux/10 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-oraclelinux:10 .
+	$(CONTAINER_ENGINE) tag $(REGISTRY)/$(NAMESPACE)/molecule-systemd-oraclelinux:10 $(REGISTRY)/$(NAMESPACE)/molecule-systemd-oraclelinux:latest
 
 debian:
 	cd ./images/debian-family/debian/9 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-debian:9 .

@@ -7,8 +7,8 @@
 
 ![Docker Pulls](https://img.shields.io/docker/pulls/mpaivabarbosa/molecule-systemd-ubuntu?logo=docker&label=docker%20pulls)
 ![Docker Image Size](https://img.shields.io/docker/image-size/mpaivabarbosa/molecule-systemd-ubuntu/latest?logo=docker&label=image%20size)
-![Supported Platforms](https://img.shields.io/badge/platforms-30%20images-blue?logo=docker)
-![Distributions](https://img.shields.io/badge/distributions-6%20families-green?logo=linux)
+![Supported Platforms](https://img.shields.io/badge/platforms-33%20images-blue?logo=docker)
+![Distributions](https://img.shields.io/badge/distributions-7%20families-green?logo=linux)
 
 ![Ansible](https://img.shields.io/badge/ansible-molecule%20ready-red?logo=ansible)
 ![Podman](https://img.shields.io/badge/podman-supported-purple?logo=podman)
@@ -45,7 +45,7 @@ Molecule encourages an approach that results in consistently developed roles tha
 
 ## Supported Images
 
-**30 container images** across **6 distributions** with **30 versions**:
+**33 container images** across **7 distributions** with **33 versions**:
 
 > All images are automatically built and tested via GitHub Actions, ensuring reliability and consistency.
 
@@ -61,6 +61,10 @@ Molecule encourages an approach that results in consistently developed roles tha
     * `8`
 
   * **[AlmaLinux](https://hub.docker.com/r/mpaivabarbosa/molecule-systemd-almalinux)**
+    * `latest`, `10`
+    * `9`, `8`
+
+  * **[Oracle Linux](https://hub.docker.com/r/mpaivabarbosa/molecule-systemd-oraclelinux)**
     * `latest`, `10`
     * `9`, `8`
 
