@@ -1,3 +1,101 @@
+# Release v2.1.0 - New Distribution Support
+
+## 🎉 New Distributions Added
+
+### 🐧 **Oracle Linux Support**
+- **Oracle Linux 8**: Enterprise-grade RHEL-compatible distribution
+- **Oracle Linux 9**: Latest stable version with extended support
+- **Oracle Linux 10**: Latest release with modern tooling
+
+### 🔷 **AlmaLinux 10**
+- **AlmaLinux 10 (Heliotrope Lion)**: Latest stable release
+- Support until 2035-06-01
+- Python 3.12 included
+
+## 📦 **Updated Image Count**
+
+**33 container images** across **7 distributions** (was 29 across 6):
+
+### **RHEL Family (14 images)** - *Expanded!*
+- **Amazon Linux**: 2, 2023 (latest)
+- **CentOS**: 7, 8 (EOL - legacy support)
+- **Rocky Linux**: 8, 9 (latest)
+- **AlmaLinux**: 8, 9, 10 (latest) ✨ **NEW VERSION**
+- **Oracle Linux**: 8, 9, 10 (latest) ✨ **NEW DISTRIBUTION**
+
+### **Debian Family (11 images)**
+- **Debian**: 9, 10, 11, 12, 13 (latest)
+- **Ubuntu**: 18.04, 19.10, 20.04, 21.04, 22.04, 23.04, 24.04 (latest)
+
+### **Fedora (9 images)**
+- **Fedora**: 31, 32, 36, 37, 38, 39, 40, 41, 42 (latest)
+
+## ✨ **What's Changed**
+
+### 🏷️ **Latest Tag Updates**
+- `almalinux:latest` → now points to version 10 (was 9)
+- `oraclelinux:latest` → now points to version 10 (new)
+
+### 🔧 **Build System**
+- **Makefile**: New `oraclelinux` target added
+- **GitHub Actions**: Matrix expanded to build all 33 images
+- **CI/CD**: Automated builds for new distributions
+
+### 📚 **Documentation**
+- Added Oracle Linux README with usage examples
+- Updated AlmaLinux README with version 10
+- Main README updated with 7 distribution families
+- All badges and shields updated
+
+## 🚀 **Usage Examples**
+
+### **Oracle Linux**
+```yaml
+platforms:
+  - name: oraclelinux-10
+    image: mpaivabarbosa/molecule-systemd-oraclelinux:10
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+```
+
+### **AlmaLinux 10**
+```yaml
+platforms:
+  - name: almalinux-10
+    image: mpaivabarbosa/molecule-systemd-almalinux:10
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+```
+
+## 🐛 **Issues Resolved**
+
+- **Issue #3**: Added Oracle Linux 8, 9 and 10 support
+- **Issue #4**: Added AlmaLinux 10 support
+
+## 📋 **Build Commands**
+
+```bash
+# Build all new images
+make almalinux    # Builds AlmaLinux 8, 9, 10
+make oraclelinux  # Builds Oracle Linux 8, 9, 10
+
+# Build everything
+make build
+```
+
+## 🔄 **Migration from v2.0.x**
+
+No breaking changes. New distributions are additive:
+- Existing images remain unchanged
+- AlmaLinux users: version 10 now available
+- Oracle Linux users: new distribution family available
+
+---
+
 # Release v2.0.0 - Major Restructure & Docker Hub Migration
 
 ## 🎉 Major Changes

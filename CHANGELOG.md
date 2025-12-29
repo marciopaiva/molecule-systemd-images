@@ -2,6 +2,40 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.1.0] - 2025-12-29
+
+### Added
+- **New Distribution Support**:
+  - AlmaLinux 10 (Heliotrope Lion) - Latest stable release
+  - Oracle Linux 8 - Enterprise-grade RHEL compatible
+  - Oracle Linux 9 - Latest stable version
+  - Oracle Linux 10 - Latest release
+- **Distribution Family Expansion**:
+  - Oracle Linux family added to RHEL-compatible distributions
+  - 7 distribution families now supported (was 6)
+- **Image Count Increase**:
+  - Total images: 33 (was 29)
+  - New images: AlmaLinux 10, Oracle Linux 8/9/10
+
+### Changed
+- **Latest Tags Updated**:
+  - `almalinux:latest` → 10 (was 9)
+  - `oraclelinux:latest` → 10 (new)
+- **GitHub Actions**: Matrix updated to build 33 images across all distributions
+- **Makefile**: 
+  - Added Oracle Linux build targets
+  - Updated supported distributions list
+  - Added oraclelinux to build target
+- **Documentation**:
+  - README.md: Updated to reflect 33 images across 7 families
+  - Added Oracle Linux README with badges and examples
+  - Updated AlmaLinux README with version 10
+
+### Fixed
+- **Issue #3**: Added Oracle Linux 8, 9 and 10 support
+- **Issue #4**: Added AlmaLinux 10 support
+- **CI/CD Pipeline**: Updated workflow to build new distribution versions
+
 ## [2.0.2] - 2025-01-16
 
 ### Added

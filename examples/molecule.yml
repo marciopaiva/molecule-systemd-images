@@ -11,7 +11,7 @@ platforms:
   # Modern distributions (recommended)
   - name: amazonlinux-2023
     hostname: amazonlinux
-    image: quay.io/mpaivabarbosa/molecule-systemd-amazonlinux:2023
+    image: mpaivabarbosa/molecule-systemd-amazonlinux:2023
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
@@ -20,25 +20,34 @@ platforms:
 
   - name: rockylinux-9
     hostname: rockylinux
-    image: quay.io/mpaivabarbosa/molecule-systemd-rockylinux:9
+    image: mpaivabarbosa/molecule-systemd-rockylinux:9
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
     pre_build_image: true
     override_command: false
 
-  - name: almalinux-9
+  - name: almalinux-10
     hostname: almalinux
-    image: quay.io/mpaivabarbosa/molecule-systemd-almalinux:9
+    image: mpaivabarbosa/molecule-systemd-almalinux:10
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
     pre_build_image: true
     override_command: false
 
-  - name: debian-12
+  - name: oraclelinux-10
+    hostname: oraclelinux
+    image: mpaivabarbosa/molecule-systemd-oraclelinux:10
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+    override_command: false
+
+  - name: debian-13
     hostname: debian
-    image: quay.io/mpaivabarbosa/molecule-systemd-debian:12
+    image: mpaivabarbosa/molecule-systemd-debian:13
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
@@ -47,16 +56,16 @@ platforms:
 
   - name: ubuntu-24
     hostname: ubuntu
-    image: quay.io/mpaivabarbosa/molecule-systemd-ubuntu:24.04
+    image: mpaivabarbosa/molecule-systemd-ubuntu:24.04
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
     pre_build_image: true
     override_command: false
 
-  - name: fedora-40
+  - name: fedora-42
     hostname: fedora
-    image: quay.io/mpaivabarbosa/molecule-systemd-fedora:40
+    image: mpaivabarbosa/molecule-systemd-fedora:42
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
@@ -66,7 +75,7 @@ platforms:
   # Legacy distributions (for compatibility)
   - name: centos-8
     hostname: centos8
-    image: quay.io/mpaivabarbosa/molecule-systemd-centos:8
+    image: mpaivabarbosa/molecule-systemd-centos:8
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true

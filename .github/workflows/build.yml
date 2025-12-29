@@ -34,6 +34,14 @@ jobs:
             version: "8"
           - os: almalinux
             version: "9"
+          - os: almalinux
+            version: "10"
+          - os: oraclelinux
+            version: "8"
+          - os: oraclelinux
+            version: "9"
+          - os: oraclelinux
+            version: "10"
           - os: debian
             version: "9"
           - os: debian
@@ -94,7 +102,7 @@ jobs:
     - name: Build image
       run: |
         # Determine image path based on OS family
-        if [[ "${{ matrix.os }}" =~ ^(amazonlinux|centos|rockylinux|almalinux)$ ]]; then
+        if [[ "${{ matrix.os }}" =~ ^(amazonlinux|centos|rockylinux|almalinux|oraclelinux)$ ]]; then
           IMAGE_PATH="images/rhel-family/${{ matrix.os }}/${{ matrix.version }}"
         elif [[ "${{ matrix.os }}" =~ ^(debian|ubuntu)$ ]]; then
           IMAGE_PATH="images/debian-family/${{ matrix.os }}/${{ matrix.version }}"
@@ -109,7 +117,8 @@ jobs:
       if: |
         (matrix.os == 'amazonlinux' && matrix.version == '2023') ||
         (matrix.os == 'rockylinux' && matrix.version == '9') ||
-        (matrix.os == 'almalinux' && matrix.version == '9') ||
+        (matrix.os == 'almalinux' && matrix.version == '10') ||
+        (matrix.os == 'oraclelinux' && matrix.version == '10') ||
         (matrix.os == 'debian' && matrix.version == '13') ||
         (matrix.os == 'fedora' && matrix.version == '42') ||
         (matrix.os == 'ubuntu' && matrix.version == '24.04')
@@ -125,9 +134,9 @@ jobs:
         fi
 
     - name: Set README path
-      if: github.event_name != 'pull_request' && (matrix.version == 'latest' || (matrix.os == 'amazonlinux' && matrix.version == '2023') || (matrix.os == 'rockylinux' && matrix.version == '9') || (matrix.os == 'almalinux' && matrix.version == '9') || (matrix.os == 'debian' && matrix.version == '13') || (matrix.os == 'fedora' && matrix.version == '42') || (matrix.os == 'ubuntu' && matrix.version == '24.04'))
+      if: github.event_name != 'pull_request' && (matrix.version == 'latest' || (matrix.os == 'amazonlinux' && matrix.version == '2023') || (matrix.os == 'rockylinux' && matrix.version == '9') || (matrix.os == 'almalinux' && matrix.version == '10') || (matrix.os == 'oraclelinux' && matrix.version == '10') || (matrix.os == 'debian' && matrix.version == '13') || (matrix.os == 'fedora' && matrix.version == '42') || (matrix.os == 'ubuntu' && matrix.version == '24.04'))
       run: |
-        if [ "${{ matrix.os }}" = "amazonlinux" ] || [ "${{ matrix.os }}" = "centos" ] || [ "${{ matrix.os }}" = "rockylinux" ] || [ "${{ matrix.os }}" = "almalinux" ]; then
+        if [ "${{ matrix.os }}" = "amazonlinux" ] || [ "${{ matrix.os }}" = "centos" ] || [ "${{ matrix.os }}" = "rockylinux" ] || [ "${{ matrix.os }}" = "almalinux" ] || [ "${{ matrix.os }}" = "oraclelinux" ]; then
           README_PATH="./images/rhel-family/${{ matrix.os }}/README.md"
         elif [ "${{ matrix.os }}" = "debian" ] || [ "${{ matrix.os }}" = "ubuntu" ]; then
           README_PATH="./images/debian-family/${{ matrix.os }}/README.md"
@@ -139,7 +148,7 @@ jobs:
         echo "README_PATH=$README_PATH" >> $GITHUB_ENV
 
     - name: Update Docker Hub description
-      if: github.event_name != 'pull_request' && (matrix.version == 'latest' || (matrix.os == 'amazonlinux' && matrix.version == '2023') || (matrix.os == 'rockylinux' && matrix.version == '9') || (matrix.os == 'almalinux' && matrix.version == '9') || (matrix.os == 'debian' && matrix.version == '13') || (matrix.os == 'fedora' && matrix.version == '42') || (matrix.os == 'ubuntu' && matrix.version == '24.04'))
+      if: github.event_name != 'pull_request' && (matrix.version == 'latest' || (matrix.os == 'amazonlinux' && matrix.version == '2023') || (matrix.os == 'rockylinux' && matrix.version == '9') || (matrix.os == 'almalinux' && matrix.version == '10') || (matrix.os == 'oraclelinux' && matrix.version == '10') || (matrix.os == 'debian' && matrix.version == '13') || (matrix.os == 'fedora' && matrix.version == '42') || (matrix.os == 'ubuntu' && matrix.version == '24.04'))
       uses: peter-evans/dockerhub-description@v4
       with:
         username: ${{ secrets.REGISTRY_USERNAME }}

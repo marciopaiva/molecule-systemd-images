@@ -3,49 +3,45 @@
 ## Current Environment Status
 
 ✅ **Installed:**
-- Podman 5.4.0
-- Python 3.9.21
-- Ansible 2.16.14
-- RHEL 9.6
+- Podman 5.7.1
+- Python 3.13.3
+- Ansible 2.18.3
+- Molecule 25.12.0
+- Fedora Linux 42 (WSL)
 
-❌ **Missing:**
-- Molecule
-- containers.podman collection
+✅ **Collections:**
+- containers.podman 1.16.3
+- community.docker 4.4.0
 
-## Required Setup
+## Quick Start
 
-### 1. Install Molecule
-
-```bash
-# Install Molecule with containers support
-pip3 install --user molecule[containers]
-
-# Add to PATH if needed
-echo 'export PATH=$HOME/.local/bin:$PATH' >> ~/.bashrc
-source ~/.bashrc
-```
-
-### 2. Install Ansible Collections
+### Build Specific Distribution
 
 ```bash
-# Install containers.podman collection
-ansible-galaxy collection install containers.podman
+# Build latest versions
+make amazonlinux    # Amazon Linux 2, 2023
+make rockylinux     # Rocky Linux 8, 9
+make almalinux      # AlmaLinux 8, 9, 10
+make oraclelinux    # Oracle Linux 8, 9, 10
+make debian         # Debian 9-13
+make fedora         # Fedora 31, 32, 36-42
+make ubuntu         # Ubuntu 18.04-24.04
 
-# Verify installation
-ansible-galaxy collection list | grep containers.podman
-```
-
-### 3. Test Build Locally
-
-```bash
-# Test building a single image
-make amazonlinux CONTAINER_ENGINE=podman
-
-# Test building all images (takes time)
+# Build all images
 make build
+```
 
-# Clean up test images
-make clean
+### Test Individual Image
+
+```bash
+# Run interactive shell
+podman run -it --rm mpaivabarbosa/molecule-systemd-almalinux:10 /bin/bash
+
+# Test systemd
+podman run -d --privileged mpaivabarbosa/molecule-systemd-oraclelinux:10
+
+# Check OS version
+podman run --rm mpaivabarbosa/molecule-systemd-almalinux:10 cat /etc/os-release
 ```
 
 ### 4. Verify Molecule Setup
