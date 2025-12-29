@@ -18,6 +18,7 @@ Container images for testing Ansible roles with Molecule using Ubuntu distributi
 - `18.04` - Ubuntu 18.04 LTS Bionic (until 2023)
 
 **Regular Releases:**
+- `24.10` - Ubuntu 24.10 Oracular Oriole
 - `23.04` - Ubuntu 23.04 Lunar (EOL)
 - `21.04` - Ubuntu 21.04 Hirsute (EOL)
 - `19.10` - Ubuntu 19.10 Eoan (EOL)

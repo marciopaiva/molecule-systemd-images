@@ -92,7 +92,9 @@ fedora:
 	cd ./images/fedora/40 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-fedora:40 .
 	cd ./images/fedora/41 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-fedora:41 .
 	cd ./images/fedora/42 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-fedora:42 .
-	$(CONTAINER_ENGINE) tag $(REGISTRY)/$(NAMESPACE)/molecule-systemd-fedora:42 $(REGISTRY)/$(NAMESPACE)/molecule-systemd-fedora:latest
+	cd ./images/fedora/43 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-fedora:43 .
+	cd ./images/fedora/44 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-fedora:44 .
+	$(CONTAINER_ENGINE) tag $(REGISTRY)/$(NAMESPACE)/molecule-systemd-fedora:44 $(REGISTRY)/$(NAMESPACE)/molecule-systemd-fedora:latest
 
 ubuntu:
 	cd ./images/debian-family/ubuntu/18.04 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-ubuntu:18.04 .
@@ -102,6 +104,7 @@ ubuntu:
 	cd ./images/debian-family/ubuntu/22.04 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-ubuntu:22.04 .
 	cd ./images/debian-family/ubuntu/23.04 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-ubuntu:23.04 .
 	cd ./images/debian-family/ubuntu/24.04 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-ubuntu:24.04 .
+	cd ./images/debian-family/ubuntu/24.10 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-ubuntu:24.10 .
 	$(CONTAINER_ENGINE) tag $(REGISTRY)/$(NAMESPACE)/molecule-systemd-ubuntu:24.04 $(REGISTRY)/$(NAMESPACE)/molecule-systemd-ubuntu:latest
 
 
