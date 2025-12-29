@@ -88,8 +88,6 @@ jobs:
             version: "23.04"
           - os: ubuntu
             version: "24.04"
-          - os: ubuntu
-            version: "24.10"
 
     steps:
     - name: Checkout

@@ -1,3 +1,53 @@
+# Release v2.2.1 - Ubuntu 24.10 Removal (EOL)
+
+## ⚠️ Breaking Change
+
+### 🗑️ **Ubuntu 24.10 Removed**
+- **Reason**: Ubuntu 24.10 (Oracular Oriole) reached End of Life in July 2025
+- **Impact**: Repositories no longer available, causing build failures
+- **Alternative**: Use Ubuntu 24.04 LTS (supported until 2029)
+
+## 📦 **Updated Image Count**
+
+**35 container images** across **7 distributions** (was 36):
+
+### **Debian Family (12 images)** - *Reduced*
+- **Debian**: 9, 10, 11, 12, 13 (latest)
+- **Ubuntu**: 18.04, 19.10, 20.04, 21.04, 22.04, 23.04, 24.04 (latest)
+
+### **Fedora (11 images)**
+- **Fedora**: 31, 32, 36, 37, 38, 39, 40, 41, 42, 43, 44 (latest)
+
+### **RHEL Family (14 images)**
+- **Amazon Linux**: 2, 2023 (latest)
+- **CentOS**: 7, 8 (EOL - legacy support)
+- **Rocky Linux**: 8, 9 (latest)
+- **AlmaLinux**: 8, 9, 10 (latest)
+- **Oracle Linux**: 8, 9, 10 (latest)
+
+## 🐛 **Bug Fix**
+
+- Fixed GitHub Actions workflow failures caused by Ubuntu 24.10 EOL
+- All 35 remaining images now build successfully
+
+## 📝 **Migration Guide**
+
+If you were using Ubuntu 24.10, update your `molecule.yml`:
+
+```yaml
+# Before (will fail)
+platforms:
+  - name: ubuntu2410
+    image: docker.io/mpaivabarbosa/molecule-systemd-ubuntu:24.10
+
+# After (recommended)
+platforms:
+  - name: ubuntu2404
+    image: docker.io/mpaivabarbosa/molecule-systemd-ubuntu:24.04
+```
+
+---
+
 # Release v2.2.0 - Fedora and Ubuntu Updates
 
 ## 🎉 New Version Additions

@@ -104,7 +104,6 @@ ubuntu:
 	cd ./images/debian-family/ubuntu/22.04 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-ubuntu:22.04 .
 	cd ./images/debian-family/ubuntu/23.04 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-ubuntu:23.04 .
 	cd ./images/debian-family/ubuntu/24.04 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-ubuntu:24.04 .
-	cd ./images/debian-family/ubuntu/24.10 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-ubuntu:24.10 .
 	$(CONTAINER_ENGINE) tag $(REGISTRY)/$(NAMESPACE)/molecule-systemd-ubuntu:24.04 $(REGISTRY)/$(NAMESPACE)/molecule-systemd-ubuntu:latest
 
 

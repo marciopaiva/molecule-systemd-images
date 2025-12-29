@@ -7,7 +7,7 @@
 
 ![Docker Pulls](https://img.shields.io/docker/pulls/mpaivabarbosa/molecule-systemd-ubuntu?logo=docker&label=docker%20pulls)
 ![Docker Image Size](https://img.shields.io/docker/image-size/mpaivabarbosa/molecule-systemd-ubuntu/latest?logo=docker&label=image%20size)
-![Supported Platforms](https://img.shields.io/badge/platforms-36%20images-blue?logo=docker)
+![Supported Platforms](https://img.shields.io/badge/platforms-35%20images-blue?logo=docker)
 ![Distributions](https://img.shields.io/badge/distributions-7%20families-green?logo=linux)
 
 ![Ansible](https://img.shields.io/badge/ansible-molecule%20ready-red?logo=ansible)
@@ -78,7 +78,7 @@ Molecule encourages an approach that results in consistently developed roles tha
 
   * **[Ubuntu](https://hub.docker.com/r/mpaivabarbosa/molecule-systemd-ubuntu)**
     * `latest`, `24.04`
-    * `24.10`, `23.04`, `22.04`, `21.04`, `20.04`, `19.10`, `18.04`
+    * `23.04`, `22.04`, `21.04`, `20.04`, `19.10`, `18.04`
 
 ## How to Use with Podman
 

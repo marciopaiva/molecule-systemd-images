@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.2.1] - 2025-12-29
+
+### Removed
+- **Ubuntu 24.10 (Oracular Oriole)**: Removed due to EOL (End of Life)
+  - Ubuntu 24.10 reached EOL in July 2025 (9 months support for non-LTS)
+  - Repositories no longer available, causing build failures
+  
+### Changed
+- **Image Count**: Reduced from 36 to 35 images
+- **GitHub Actions**: Matrix updated to build 35 images
+- **Documentation**: Removed Ubuntu 24.10 references from all READMEs
+
+### Fixed
+- Build workflow failures caused by Ubuntu 24.10 unavailable repositories
+
 ## [2.2.0] - 2025-12-29
 
 ### Added
