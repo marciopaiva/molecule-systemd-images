@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.2.0] - 2025-12-29
+
+### Added
+- **New Fedora Versions**:
+  - Fedora 43 - Latest stable release
+  - Fedora 44 - Rawhide/Development version
+- **New Ubuntu Version**:
+  - Ubuntu 24.10 (Oracular Oriole) - Latest interim release
+- **Image Count Increase**:
+  - Total images: 36 (was 33)
+  - New images: Fedora 43/44, Ubuntu 24.10
+
+### Changed
+- **Latest Tags Updated**:
+  - `fedora:latest` → 44 (was 42)
+- **GitHub Actions**: Matrix updated to build 36 images across all distributions
+- **Documentation**:
+  - README.md: Updated to reflect 36 images
+  - Fedora README: Added versions 43 and 44
+  - Ubuntu README: Added version 24.10
+
 ## [2.1.0] - 2025-12-29
 
 ### Added

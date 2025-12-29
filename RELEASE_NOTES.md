@@ -1,3 +1,85 @@
+# Release v2.2.0 - Fedora and Ubuntu Updates
+
+## 🎉 New Version Additions
+
+### 🔵 **Fedora Updates**
+- **Fedora 43**: Latest stable release
+- **Fedora 44**: Rawhide/Development version
+
+### 🟠 **Ubuntu Update**
+- **Ubuntu 24.10 (Oracular Oriole)**: Latest interim release
+
+## 📦 **Updated Image Count**
+
+**36 container images** across **7 distributions** (was 33):
+
+### **RHEL Family (14 images)**
+- **Amazon Linux**: 2, 2023 (latest)
+- **CentOS**: 7, 8 (EOL - legacy support)
+- **Rocky Linux**: 8, 9 (latest)
+- **AlmaLinux**: 8, 9, 10 (latest)
+- **Oracle Linux**: 8, 9, 10 (latest)
+
+### **Debian Family (13 images)** - *Expanded!*
+- **Debian**: 9, 10, 11, 12, 13 (latest)
+- **Ubuntu**: 18.04, 19.10, 20.04, 21.04, 22.04, 23.04, 24.04, 24.10 (latest) ✨ **NEW VERSION**
+
+### **Fedora (11 images)** - *Expanded!*
+- **Fedora**: 31, 32, 36, 37, 38, 39, 40, 41, 42, 43, 44 (latest) ✨ **NEW VERSIONS**
+
+## ✨ **What's Changed**
+
+### 🏷️ **Latest Tag Updates**
+- `fedora:latest` → now points to version 44 (was 42)
+- `ubuntu:latest` → remains at 24.04 LTS
+
+### 🔧 **Build System**
+- **Makefile**: Added fedora:43, fedora:44, ubuntu:24.10 targets
+- **GitHub Actions**: Matrix expanded to build all 36 images
+- **CI/CD**: Automated builds for new versions
+
+### 📚 **Documentation**
+- Updated Fedora README with versions 43 and 44
+- Updated Ubuntu README with version 24.10
+- Main README updated to reflect 36 total images
+
+## 🚀 **Usage Examples**
+
+### Using Fedora 44 (Latest/Rawhide)
+```yaml
+platforms:
+  - name: fedora44
+    image: docker.io/mpaivabarbosa/molecule-systemd-fedora:44
+    pre_build_image: true
+    privileged: true
+    command: /usr/sbin/init
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    cgroupns_mode: host
+```
+
+### Using Ubuntu 24.10
+```yaml
+platforms:
+  - name: ubuntu2410
+    image: docker.io/mpaivabarbosa/molecule-systemd-ubuntu:24.10
+    pre_build_image: true
+    privileged: true
+    command: /usr/lib/systemd/systemd
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    cgroupns_mode: host
+```
+
+## 🔄 **Version Support**
+
+| Distribution | Versions Available | Latest Tag | Status |
+|--------------|-------------------|------------|--------|
+| Fedora | 31, 32, 36-44 | 44 | ✅ Active |
+| Ubuntu | 18.04-24.10 | 24.04 LTS | ✅ Active |
+
+---
+
 # Release v2.1.0 - New Distribution Support
 
 ## 🎉 New Distributions Added
