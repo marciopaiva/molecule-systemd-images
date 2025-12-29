@@ -64,7 +64,8 @@ rockylinux:
 almalinux:
 	cd ./images/rhel-family/almalinux/8 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-almalinux:8 .
 	cd ./images/rhel-family/almalinux/9 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-almalinux:9 .
-	$(CONTAINER_ENGINE) tag $(REGISTRY)/$(NAMESPACE)/molecule-systemd-almalinux:9 $(REGISTRY)/$(NAMESPACE)/molecule-systemd-almalinux:latest
+	cd ./images/rhel-family/almalinux/10 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-almalinux:10 .
+	$(CONTAINER_ENGINE) tag $(REGISTRY)/$(NAMESPACE)/molecule-systemd-almalinux:10 $(REGISTRY)/$(NAMESPACE)/molecule-systemd-almalinux:latest
 
 debian:
 	cd ./images/debian-family/debian/9 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-debian:9 .

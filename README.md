@@ -7,7 +7,7 @@
 
 ![Docker Pulls](https://img.shields.io/docker/pulls/mpaivabarbosa/molecule-systemd-ubuntu?logo=docker&label=docker%20pulls)
 ![Docker Image Size](https://img.shields.io/docker/image-size/mpaivabarbosa/molecule-systemd-ubuntu/latest?logo=docker&label=image%20size)
-![Supported Platforms](https://img.shields.io/badge/platforms-29%20images-blue?logo=docker)
+![Supported Platforms](https://img.shields.io/badge/platforms-30%20images-blue?logo=docker)
 ![Distributions](https://img.shields.io/badge/distributions-6%20families-green?logo=linux)
 
 ![Ansible](https://img.shields.io/badge/ansible-molecule%20ready-red?logo=ansible)
@@ -45,7 +45,7 @@ Molecule encourages an approach that results in consistently developed roles tha
 
 ## Supported Images
 
-**29 container images** across **6 distributions** with **29 versions**:
+**30 container images** across **6 distributions** with **30 versions**:
 
 > All images are automatically built and tested via GitHub Actions, ensuring reliability and consistency.
 
@@ -61,8 +61,8 @@ Molecule encourages an approach that results in consistently developed roles tha
     * `8`
 
   * **[AlmaLinux](https://hub.docker.com/r/mpaivabarbosa/molecule-systemd-almalinux)**
-    * `latest`, `9`
-    * `8`
+    * `latest`, `10`
+    * `9`, `8`
 
   * **[Debian](https://hub.docker.com/r/mpaivabarbosa/molecule-systemd-debian)**
     * `latest`, `13`
