@@ -7,8 +7,8 @@
 
 ![Docker Pulls](https://img.shields.io/docker/pulls/mpaivabarbosa/molecule-systemd-ubuntu?logo=docker&label=docker%20pulls)
 ![Docker Image Size](https://img.shields.io/docker/image-size/mpaivabarbosa/molecule-systemd-ubuntu/latest?logo=docker&label=image%20size)
-![Supported Platforms](https://img.shields.io/badge/platforms-35%20images-blue?logo=docker)
-![Distributions](https://img.shields.io/badge/distributions-7%20families-green?logo=linux)
+![Supported Platforms](https://img.shields.io/badge/platforms-38%20images-blue?logo=docker)
+![Distributions](https://img.shields.io/badge/distributions-8%20families-green?logo=linux)
 
 ![Ansible](https://img.shields.io/badge/ansible-molecule%20ready-red?logo=ansible)
 ![Podman](https://img.shields.io/badge/podman-supported-purple?logo=podman)
@@ -45,7 +45,7 @@ Molecule encourages an approach that results in consistently developed roles tha
 
 ## Supported Images
 
-**36 container images** across **7 distributions** with **36 versions**:
+**38 container images** across **8 distributions** with **38 versions**:
 
 > All images are automatically built and tested via GitHub Actions, ensuring reliability and consistency.
 
@@ -79,6 +79,10 @@ Molecule encourages an approach that results in consistently developed roles tha
   * **[Ubuntu](https://hub.docker.com/r/mpaivabarbosa/molecule-systemd-ubuntu)**
     * `latest`, `24.04`
     * `23.04`, `22.04`, `21.04`, `20.04`, `19.10`, `18.04`
+
+  * **[openSUSE Leap](https://hub.docker.com/r/mpaivabarbosa/molecule-systemd-opensuse)**
+    * `latest`, `15.6`
+    * `15.5`, `15.4`
 
 ## How to Use with Podman
 

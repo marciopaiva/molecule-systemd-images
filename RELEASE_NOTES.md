@@ -1,3 +1,94 @@
+# Release v2.3.0 - openSUSE Leap Support
+
+## 🎉 New Distribution Family
+
+### 🦎 **openSUSE Leap**
+- **openSUSE Leap 15.6**: Latest stable release (until December 2025)
+- **openSUSE Leap 15.5**: Previous stable (until December 2024)
+- **openSUSE Leap 15.4**: Legacy support (until December 2023)
+
+## 📦 **Updated Image Count**
+
+**38 container images** across **8 distributions** (was 35 across 7):
+
+### **RHEL Family (14 images)**
+- **Amazon Linux**: 2, 2023 (latest)
+- **CentOS**: 7, 8 (EOL - legacy support)
+- **Rocky Linux**: 8, 9 (latest)
+- **AlmaLinux**: 8, 9, 10 (latest)
+- **Oracle Linux**: 8, 9, 10 (latest)
+
+### **Debian Family (12 images)**
+- **Debian**: 9, 10, 11, 12, 13 (latest)
+- **Ubuntu**: 18.04, 19.10, 20.04, 21.04, 22.04, 23.04, 24.04 (latest)
+
+### **Fedora (11 images)**
+- **Fedora**: 31, 32, 36, 37, 38, 39, 40, 41, 42, 43, 44 (latest)
+
+### **SUSE Family (3 images)** ✨ **NEW**
+- **openSUSE Leap**: 15.4, 15.5, 15.6 (latest)
+
+## ✨ **What's Changed**
+
+### 🏷️ **Latest Tag Updates**
+- `opensuse:latest` → now points to version 15.6 (new)
+
+### 🔧 **Build System**
+- **Makefile**: New `opensuse` target added
+- **GitHub Actions**: Matrix expanded to build all 38 images
+- **CI/CD**: Automated builds for openSUSE Leap
+
+### 📚 **Documentation**
+- Added openSUSE Leap README with usage examples
+- Main README updated with 8 distribution families
+- All badges and shields updated
+
+## 🚀 **Usage Examples**
+
+### Using openSUSE Leap 15.6
+```yaml
+platforms:
+  - name: opensuse-leap-15-6
+    image: docker.io/mpaivabarbosa/molecule-systemd-opensuse:15.6
+    pre_build_image: true
+    privileged: true
+    command: /usr/lib/systemd/systemd
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    cgroupns_mode: host
+```
+
+### Using openSUSE Leap (latest)
+```yaml
+platforms:
+  - name: opensuse-latest
+    image: docker.io/mpaivabarbosa/molecule-systemd-opensuse:latest
+    pre_build_image: true
+    privileged: true
+    command: /usr/lib/systemd/systemd
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    cgroupns_mode: host
+```
+
+## 🔄 **Distribution Coverage**
+
+Now supporting all 3 major Linux distribution families:
+- ✅ **RHEL-based**: Amazon Linux, CentOS, Rocky, AlmaLinux, Oracle Linux
+- ✅ **Debian-based**: Debian, Ubuntu
+- ✅ **SUSE-based**: openSUSE Leap
+- ✅ **Independent**: Fedora
+
+## 📊 **Why openSUSE Leap?**
+
+- **Enterprise Ready**: Based on SUSE Linux Enterprise (SLE)
+- **Stability**: 18-month support cycle per version
+- **systemd Native**: Full systemd support out of the box
+- **Professional Use**: Widely used in corporate environments
+- **Package Manager**: zypper (RPM-based, like RHEL/Fedora)
+
+---
+
 # Release v2.2.1 - Ubuntu 24.10 Removal (EOL)
 
 ## ⚠️ Breaking Change

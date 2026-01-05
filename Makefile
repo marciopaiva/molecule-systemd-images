@@ -15,6 +15,7 @@
 #   - Debian (9, 10, 11, 12, 13)
 #   - Fedora (31, 32, 36-42)
 #   - Ubuntu (18.04, 19.10, 20.04, 21.04, 22.04, 23.04, 24.04)
+#   - openSUSE Leap (15.4, 15.5, 15.6)
 #
 # Usage:
 #   make build          - Build all images
@@ -28,7 +29,7 @@ REGISTRY ?= docker.io
 NAMESPACE ?= mpaivabarbosa
 
 # Build all images
-build: amazonlinux centos rockylinux almalinux oraclelinux debian fedora ubuntu
+build: amazonlinux centos rockylinux almalinux oraclelinux debian fedora ubuntu opensuse
 
 
 
@@ -106,7 +107,12 @@ ubuntu:
 	cd ./images/debian-family/ubuntu/24.04 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-ubuntu:24.04 .
 	$(CONTAINER_ENGINE) tag $(REGISTRY)/$(NAMESPACE)/molecule-systemd-ubuntu:24.04 $(REGISTRY)/$(NAMESPACE)/molecule-systemd-ubuntu:latest
 
-
+# openSUSE Leap
+opensuse:
+	cd ./images/opensuse/15.4 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-opensuse:15.4 .
+	cd ./images/opensuse/15.5 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-opensuse:15.5 .
+	cd ./images/opensuse/15.6 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-opensuse:15.6 .
+	$(CONTAINER_ENGINE) tag $(REGISTRY)/$(NAMESPACE)/molecule-systemd-opensuse:15.6 $(REGISTRY)/$(NAMESPACE)/molecule-systemd-opensuse:latest
 
 # Clean up images
 clean:
@@ -132,6 +138,7 @@ help:
 	@echo "  debian         - Build Debian images"
 	@echo "  fedora         - Build Fedora images"
 	@echo "  ubuntu         - Build Ubuntu images"
+	@echo "  opensuse       - Build openSUSE Leap images"
 
 	@echo "  test           - Test specific image (use IMAGE=name:tag)"
 	@echo "  list           - List all built images"
@@ -146,4 +153,4 @@ help:
 	@echo "  REGISTRY         - Registry URL (default: docker.io)"
 	@echo "  NAMESPACE        - Registry namespace (default: mpaivabarbosa)"
 
-.PHONY: build amazonlinux centos rockylinux almalinux debian fedora ubuntu test list sizes clean clean-dangling login help
+.PHONY: build amazonlinux centos rockylinux almalinux oraclelinux debian fedora ubuntu opensuse test list sizes clean clean-dangling login help

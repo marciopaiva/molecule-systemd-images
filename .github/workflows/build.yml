@@ -88,6 +88,12 @@ jobs:
             version: "23.04"
           - os: ubuntu
             version: "24.04"
+          - os: opensuse
+            version: "15.4"
+          - os: opensuse
+            version: "15.5"
+          - os: opensuse
+            version: "15.6"
 
     steps:
     - name: Checkout
@@ -112,6 +118,8 @@ jobs:
           IMAGE_PATH="images/debian-family/${{ matrix.os }}/${{ matrix.version }}"
         elif [[ "${{ matrix.os }}" == "fedora" ]]; then
           IMAGE_PATH="images/fedora/${{ matrix.version }}"
+        elif [[ "${{ matrix.os }}" == "opensuse" ]]; then
+          IMAGE_PATH="images/opensuse/${{ matrix.version }}"
         fi
         
         cd "${IMAGE_PATH}"
@@ -125,7 +133,8 @@ jobs:
         (matrix.os == 'oraclelinux' && matrix.version == '10') ||
         (matrix.os == 'debian' && matrix.version == '13') ||
         (matrix.os == 'fedora' && matrix.version == '44') ||
-        (matrix.os == 'ubuntu' && matrix.version == '24.04')
+        (matrix.os == 'ubuntu' && matrix.version == '24.04') ||
+        (matrix.os == 'opensuse' && matrix.version == '15.6')
       run: |
         podman tag ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/molecule-systemd-${{ matrix.os }}:${{ matrix.version }} ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/molecule-systemd-${{ matrix.os }}:latest
 

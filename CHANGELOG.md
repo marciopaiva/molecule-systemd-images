@@ -2,6 +2,40 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.3.0] - 2026-01-05
+
+### Added
+- **New Distribution Family: openSUSE Leap**
+  - openSUSE Leap 15.6 (latest) - Support until December 2025
+  - openSUSE Leap 15.5 - Support until December 2024
+  - openSUSE Leap 15.4 - Support until December 2023
+- **Distribution Family Expansion**:
+  - openSUSE family added (SUSE-based distributions)
+  - 8 distribution families now supported (was 7)
+- **Image Count Increase**:
+  - Total images: 38 (was 35)
+  - New images: openSUSE Leap 15.4, 15.5, 15.6
+
+### Changed
+- **Latest Tags Updated**:
+  - `opensuse:latest` → 15.6 (new)
+- **GitHub Actions**: Matrix updated to build 38 images across all distributions
+- **Makefile**: 
+  - Added openSUSE Leap build targets
+  - Updated supported distributions list
+  - Added opensuse to build target
+- **Documentation**:
+  - README.md: Updated to reflect 38 images across 8 families
+  - Added openSUSE README with usage examples
+  - Updated main README with openSUSE section
+
+### Technical Details
+- openSUSE images use zypper package manager
+- systemd enabled and configured
+- Python 3 and pip pre-installed
+- ansible user with passwordless sudo access
+- Compatible with Molecule testing framework
+
 ## [2.2.1] - 2025-12-29
 
 ### Removed
