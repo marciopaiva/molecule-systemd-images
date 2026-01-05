@@ -34,6 +34,53 @@ platforms:
 - Ansible user with sudo privileges
 - Optimized for Molecule testing
 
+## Why AlmaLinux?
+
+- ✅ **1:1 Binary Compatible** with RHEL
+- ✅ **Community Driven** - Owned and governed by the community
+- ✅ **Long-term Support** - ~10 years per major version
+- ✅ **Free Forever** - No license costs
+- ✅ **CentOS Replacement** - Drop-in replacement for CentOS Linux
+
+## Use Cases
+
+- Testing roles for RHEL environments without licensing
+- Migrating from CentOS Linux
+- Enterprise application compatibility testing
+- CI/CD pipelines requiring RHEL-like systems
+
+## Image Sizes
+
+| Tag | Size | Python Version | systemd Version |
+|-----|------|----------------|----------------|
+| 10  | ~300MB | 3.12 | 259+ |
+| 9   | ~280MB | 3.9  | 252+ |
+| 8   | ~260MB | 3.6  | 239+ |
+
+## Common Issues
+
+**Issue: SELinux in container**
+```yaml
+# SELinux is disabled by default in containers
+# If needed, add: --security-opt label=disable
+```
+
+**Issue: Systemd fails to start**
+```yaml
+# Ensure proper cgroup configuration
+platforms:
+  - name: almalinux
+    privileged: true
+    cgroupns_mode: host
+```
+
+## Links
+
+- [AlmaLinux Official](https://almalinux.org/)
+- [AlmaLinux Wiki](https://wiki.almalinux.org/)
+- [Release Notes](https://wiki.almalinux.org/release-notes/)
+- [Package Repository](https://repo.almalinux.org/)
+
 ## Important Note
 
 ⚠️ **These images are designed for testing purposes only and should NOT be used in production environments.** The configuration is optimized for Molecule testing scenarios and may not be suitable for secure production deployments.

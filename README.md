@@ -16,6 +16,25 @@
 
 Base container images for testing using Ansible Molecule test framework with Podman support.
 
+---
+
+## 📑 Table of Contents
+
+- [Quick Start](#quick-start)
+- [About Ansible Molecule](#about-ansible-molecule)
+- [Supported Images](#supported-images)
+- [Distribution Comparison](#distribution-comparison)
+- [How to Use with Podman](#how-to-use-with-podman)
+- [Requirements](#requirements)
+- [Building Images Locally](#building-images-locally)
+- [Performance Tips](#performance-tips)
+- [Troubleshooting](#troubleshooting)
+- [Migration from Docker](#migration-from-docker)
+- [Features](#features)
+- [Project Structure](#project-structure)
+- [Contributing](#contributing)
+- [License](#license)
+
 ## Quick Start
 
 ```bash
@@ -84,6 +103,26 @@ Molecule encourages an approach that results in consistently developed roles tha
     * `latest`, `15.6`
     * `15.5`, `15.4`
 
+## Distribution Comparison
+
+| Distribution | Use Case | Package Manager | Release Cycle | Best For |
+|--------------|----------|-----------------|---------------|----------|
+| **Amazon Linux 2023** | AWS workloads | yum/dnf | Rolling | AWS-specific testing, Lambda functions |
+| **Rocky Linux 9** | RHEL alternative | dnf | ~10 years | Enterprise, CentOS replacement |
+| **AlmaLinux 10** | RHEL alternative | dnf | ~10 years | Enterprise, latest RHEL features |
+| **Oracle Linux 10** | Enterprise | dnf | ~10 years | Oracle DB, enterprise apps |
+| **Debian 13** | Stability | apt | ~5 years | General purpose, stable environments |
+| **Ubuntu 24.04 LTS** | Modern & popular | apt | 5 years (LTS) | Cloud, DevOps, modern tooling |
+| **Fedora 44** | Cutting edge | dnf | ~6 months | Latest features, development |
+| **openSUSE Leap 15.6** | SUSE Enterprise | zypper | 18 months | SUSE environments, SAP workloads |
+
+**Quick Selection Guide:**
+- 🏢 **Enterprise/Production-like:** Rocky Linux, AlmaLinux, Oracle Linux
+- ☁️ **Cloud Native:** Ubuntu LTS, Amazon Linux
+- 🔬 **Development/Testing:** Fedora, Debian
+- 🏛️ **SUSE Environments:** openSUSE Leap
+- 📦 **Legacy Support:** CentOS (EOL)
+
 ## How to Use with Podman
 
 To use these images with Podman, edit the `platforms` section of file `molecule/default/molecule.yml` as follows:
@@ -133,11 +172,21 @@ platforms:
   pre_build_image: true
   override_command: false
 
-- name: fedora-42
+- name: fedora-44
   hostname: fedora
-  image: mpaivabarbosa/molecule-systemd-fedora:42
+  image: mpaivabarbosa/molecule-systemd-fedora:44
   volumes:
     - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  privileged: true
+  pre_build_image: true
+  override_command: false
+
+- name: opensuse-leap-15
+  hostname: opensuse
+  image: mpaivabarbosa/molecule-systemd-opensuse:15.6
+  volumes:
+    - /sys/fs/cgroup:/sys/fs/cgroup:rw
+  cgroupns_mode: host
   privileged: true
   pre_build_image: true
   override_command: false
@@ -193,6 +242,7 @@ make almalinux      # AlmaLinux images
 make debian         # Debian images
 make fedora         # Fedora images
 make ubuntu         # Ubuntu images
+make opensuse       # openSUSE Leap images
 
 
 
@@ -217,6 +267,117 @@ make build CONTAINER_ENGINE=docker
 # Show all available targets
 make help
 ```
+
+## Performance Tips
+
+### CI/CD Optimization
+
+**1. Use pre-built images:**
+```yaml
+platforms:
+  - name: ubuntu-test
+    image: mpaivabarbosa/molecule-systemd-ubuntu:24.04
+    pre_build_image: true  # Don't rebuild, use from registry
+```
+
+**2. Cache in GitHub Actions:**
+```yaml
+- name: Cache Podman images
+  uses: actions/cache@v4
+  with:
+    path: ~/.local/share/containers
+    key: ${{ runner.os }}-podman-${{ hashFiles('**/molecule.yml') }}
+```
+
+**3. Parallel testing:**
+```bash
+# Run multiple distributions in parallel
+molecule test --parallel
+```
+
+**4. Selective testing:**
+```yaml
+# Test only on changed platforms
+platforms:
+  - name: ubuntu-test
+    image: mpaivabarbosa/molecule-systemd-ubuntu:24.04
+```
+
+### Local Development
+
+- **Reuse containers:** Use `molecule converge` instead of `molecule test` for iterative development
+- **Limit platforms:** Comment out unused platforms during development
+- **Use latest tags:** For development, use `:latest` tags to get updates automatically
+
+## Troubleshooting
+
+### Common Issues
+
+**Problem: "Failed to connect to bus: Host is down"**
+```yaml
+# Solution: Ensure systemd is properly configured
+platforms:
+  - name: instance
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw  # Note: rw for some distros
+    cgroupns_mode: host
+    command: /usr/lib/systemd/systemd  # or /usr/sbin/init
+```
+
+**Problem: "Permission denied" or sudo issues**
+```yaml
+# Solution: Use the pre-configured ansible user
+provisioner:
+  name: ansible
+  config_options:
+    defaults:
+      remote_user: ansible  # This user has passwordless sudo
+```
+
+**Problem: "Container image not found"**
+```bash
+# Solution: Check image name and pull manually
+podman pull docker.io/mpaivabarbosa/molecule-systemd-ubuntu:24.04
+```
+
+**Problem: Slow container startup**
+```yaml
+# Solution: Disable unnecessary systemd services
+platforms:
+  - name: instance
+    dockerfile: |
+      FROM mpaivabarbosa/molecule-systemd-ubuntu:24.04
+      RUN systemctl disable unwanted.service
+```
+
+**Problem: cgroup v2 issues on older systems**
+```bash
+# Solution: Use cgroup v1 compatibility
+podman run --cgroupns=host --cgroup-manager=cgroupfs ...
+```
+
+### Debug Mode
+
+Enable verbose output:
+```bash
+# Molecule debug
+molecule --debug test
+
+# Podman debug
+podman --log-level=debug run ...
+
+# Ansible debug
+molecule test -- -vvv
+```
+
+### Getting Help
+
+- 📖 [Full Documentation](docs/)
+- 🐛 [Report Issues](https://github.com/marciopaiva/molecule-systemd-images/issues)
+- 💬 [Discussions](https://github.com/marciopaiva/molecule-systemd-images/discussions)
+- 📚 [Molecule Docs](https://ansible.readthedocs.io/projects/molecule/)
+- 🔧 [Troubleshooting Guide](docs/TROUBLESHOOTING.md)
 
 ## Migration from Docker
 

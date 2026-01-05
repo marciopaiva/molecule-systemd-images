@@ -26,12 +26,28 @@ Container images for testing Ansible roles with Molecule using Fedora distributi
 - `32` - Fedora 32 (EOL)
 - `31` - Fedora 31 (EOL)
 
+## Why Fedora?
+
+- ✅ **Cutting Edge** - Latest software packages and kernel
+- ✅ **Upstream First** - Features land here before RHEL
+- ✅ **Fast Release Cycle** - New version every ~6 months
+- ✅ **SELinux Enforcing** - Security-enhanced by default
+- ✅ **Innovation Hub** - Testing ground for Red Hat technologies
+
+## Use Cases
+
+- Testing with the latest software versions
+- Development and early feature testing
+- Validating compatibility with upcoming RHEL features
+- Modern toolchain and library testing
+- CI/CD for forward-compatibility
+
 ## Usage
 
 ```yaml
 platforms:
-  - name: fedora-42
-    image: mpaivabarbosa/molecule-systemd-fedora:42
+  - name: fedora-44
+    image: mpaivabarbosa/molecule-systemd-fedora:44
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
@@ -40,10 +56,33 @@ platforms:
 
 ## Features
 
-- Systemd enabled
-- Python 3 installed
+- Systemd enabled (latest version)
+- Python 3.14 (Fedora 44) / 3.13 (Fedora 43)
+- DNF package manager
 - Ansible user with sudo privileges
 - Optimized for Molecule testing
+- SELinux available (permissive in containers)
+
+## Common Issues
+
+**Issue: DNF is slow**
+```bash
+# Use faster mirrors
+RUN echo "fastestmirror=1" >> /etc/dnf/dnf.conf
+```
+
+**Issue: Package not found**
+```bash
+# Enable additional repositories
+RUN dnf install -y fedora-repos-rawhide
+```
+
+## Links
+
+- [Fedora Official](https://getfedora.org/)
+- [Fedora Docs](https://docs.fedoraproject.org/)
+- [Fedora Packages](https://packages.fedoraproject.org/)
+- [Fedora Magazine](https://fedoramagazine.org/)
 
 ## Important Note
 

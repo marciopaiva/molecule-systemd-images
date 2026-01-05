@@ -22,6 +22,22 @@ Container images for testing Ansible roles with Molecule using Ubuntu distributi
 - `21.04` - Ubuntu 21.04 Hirsute (EOL)
 - `19.10` - Ubuntu 19.10 Eoan (EOL)
 
+## Why Ubuntu?
+
+- ✅ **Most Popular** - Largest community and ecosystem
+- ✅ **LTS Releases** - 5 years of support for stability
+- ✅ **Cloud Native** - Default choice for many cloud providers
+- ✅ **Modern Packages** - Balance of stability and up-to-date software
+- ✅ **Extensive Documentation** - Best-in-class community resources
+
+## Use Cases
+
+- General purpose testing - most common Linux distribution
+- Cloud deployment validation (AWS, Azure, GCP default)
+- Modern application stack testing
+- Container orchestration (K8s, Docker)
+- DevOps and CI/CD pipelines
+
 ## Usage
 
 ```yaml

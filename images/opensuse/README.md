@@ -18,6 +18,71 @@ Pre-built openSUSE Leap container images for testing Ansible roles using Molecul
 - **ansible** user with passwordless sudo
 - Optimized for Molecule testing
 
+## Why openSUSE Leap?
+
+- ✅ **Enterprise Foundation** - Based on SUSE Linux Enterprise (SLE)
+- ✅ **Stability** - 18-month support cycle per version
+- ✅ **Professional Use** - Widely used in corporate environments
+- ✅ **YaST Integration** - Powerful system configuration tool
+- ✅ **Btrfs by Default** - Advanced filesystem features
+
+## Use Cases
+
+- Testing roles for SUSE Linux Enterprise environments
+- SAP workload compatibility testing
+- Zypper package manager testing
+- Enterprise Linux (non-RHEL) validation
+- openSUSE/SUSE-specific application testing
+
+## Image Sizes
+
+| Tag | Size | Python Version | systemd Version | Support Until |
+|-----|------|----------------|----------------|---------------|
+| 15.6 | ~180MB | 3.6 | 254+ | December 2025 |
+| 15.5 | ~175MB | 3.6 | 249+ | December 2024 |
+| 15.4 | ~170MB | 3.6 | 249+ | December 2023 |
+
+## Package Management
+
+```bash
+# Inside container - using zypper
+zypper refresh                    # Update repository metadata
+zypper install package_name       # Install package
+zypper search keyword             # Search packages
+zypper update                     # Update all packages
+```
+
+## Common Issues
+
+**Issue: Group 'wheel' not found**
+```bash
+# openSUSE doesn't use 'wheel' group by default
+# These images use sudoers.d for ansible user
+```
+
+**Issue: Zypper lock errors**
+```bash
+# Wait for zypper processes to complete
+# Or use: zypper --non-interactive
+```
+
+## Differences from RHEL/Debian
+
+| Feature | openSUSE | RHEL/CentOS | Debian/Ubuntu |
+|---------|----------|-------------|---------------|
+| Package Manager | zypper | yum/dnf | apt |
+| Init System | systemd | systemd | systemd |
+| Default Filesystem | Btrfs | XFS | ext4 |
+| Config Tool | YaST | - | debconf |
+| Release Cycle | 12-18 months | ~3 years | 2 years (stable) |
+
+## Links
+
+- [openSUSE Official](https://www.opensuse.org/)
+- [openSUSE Leap Docs](https://doc.opensuse.org/)
+- [Zypper Cheat Sheet](https://en.opensuse.org/SDB:Zypper_usage)
+- [SUSE Package Hub](https://packagehub.suse.com/)
+
 ## Usage Example
 
 ```yaml
