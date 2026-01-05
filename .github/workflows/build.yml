@@ -147,7 +147,7 @@ jobs:
         fi
 
     - name: Set README path
-      if: github.event_name != 'pull_request' && (matrix.version == 'latest' || (matrix.os == 'amazonlinux' && matrix.version == '2023') || (matrix.os == 'rockylinux' && matrix.version == '9') || (matrix.os == 'almalinux' && matrix.version == '10') || (matrix.os == 'oraclelinux' && matrix.version == '10') || (matrix.os == 'debian' && matrix.version == '13') || (matrix.os == 'fedora' && matrix.version == '44') || (matrix.os == 'ubuntu' && matrix.version == '24.04'))
+      if: github.event_name != 'pull_request' && (matrix.version == 'latest' || (matrix.os == 'amazonlinux' && matrix.version == '2023') || (matrix.os == 'rockylinux' && matrix.version == '9') || (matrix.os == 'almalinux' && matrix.version == '10') || (matrix.os == 'oraclelinux' && matrix.version == '10') || (matrix.os == 'debian' && matrix.version == '13') || (matrix.os == 'fedora' && matrix.version == '44') || (matrix.os == 'ubuntu' && matrix.version == '24.04') || (matrix.os == 'opensuse' && matrix.version == '15.6'))
       run: |
         if [ "${{ matrix.os }}" = "amazonlinux" ] || [ "${{ matrix.os }}" = "centos" ] || [ "${{ matrix.os }}" = "rockylinux" ] || [ "${{ matrix.os }}" = "almalinux" ] || [ "${{ matrix.os }}" = "oraclelinux" ]; then
           README_PATH="./images/rhel-family/${{ matrix.os }}/README.md"
@@ -155,13 +155,15 @@ jobs:
           README_PATH="./images/debian-family/${{ matrix.os }}/README.md"
         elif [ "${{ matrix.os }}" = "fedora" ]; then
           README_PATH="./images/fedora/README.md"
+        elif [ "${{ matrix.os }}" = "opensuse" ]; then
+          README_PATH="./images/opensuse/README.md"
         else
           README_PATH="./README.md"
         fi
         echo "README_PATH=$README_PATH" >> $GITHUB_ENV
 
     - name: Update Docker Hub description
-      if: github.event_name != 'pull_request' && (matrix.version == 'latest' || (matrix.os == 'amazonlinux' && matrix.version == '2023') || (matrix.os == 'rockylinux' && matrix.version == '9') || (matrix.os == 'almalinux' && matrix.version == '10') || (matrix.os == 'oraclelinux' && matrix.version == '10') || (matrix.os == 'debian' && matrix.version == '13') || (matrix.os == 'fedora' && matrix.version == '44') || (matrix.os == 'ubuntu' && matrix.version == '24.04'))
+      if: github.event_name != 'pull_request' && (matrix.version == 'latest' || (matrix.os == 'amazonlinux' && matrix.version == '2023') || (matrix.os == 'rockylinux' && matrix.version == '9') || (matrix.os == 'almalinux' && matrix.version == '10') || (matrix.os == 'oraclelinux' && matrix.version == '10') || (matrix.os == 'debian' && matrix.version == '13') || (matrix.os == 'fedora' && matrix.version == '44') || (matrix.os == 'ubuntu' && matrix.version == '24.04') || (matrix.os == 'opensuse' && matrix.version == '15.6'))
       uses: peter-evans/dockerhub-description@v4
       with:
         username: ${{ secrets.REGISTRY_USERNAME }}
