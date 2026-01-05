@@ -13,9 +13,10 @@
 #   - AlmaLinux (8, 9, 10)
 #   - Oracle Linux (8, 9, 10)
 #   - Debian (9, 10, 11, 12, 13)
-#   - Fedora (31, 32, 36-42)
+#   - Fedora (31, 32, 36-44)
 #   - Ubuntu (18.04, 19.10, 20.04, 21.04, 22.04, 23.04, 24.04)
 #   - openSUSE Leap (15.4, 15.5, 15.6)
+#   - Arch Linux (rolling)
 #
 # Usage:
 #   make build          - Build all images
@@ -29,7 +30,7 @@ REGISTRY ?= docker.io
 NAMESPACE ?= mpaivabarbosa
 
 # Build all images
-build: amazonlinux centos rockylinux almalinux oraclelinux debian fedora ubuntu opensuse
+build: amazonlinux centos rockylinux almalinux oraclelinux debian fedora ubuntu opensuse archlinux
 
 
 
@@ -114,6 +115,10 @@ opensuse:
 	cd ./images/opensuse/15.6 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-opensuse:15.6 .
 	$(CONTAINER_ENGINE) tag $(REGISTRY)/$(NAMESPACE)/molecule-systemd-opensuse:15.6 $(REGISTRY)/$(NAMESPACE)/molecule-systemd-opensuse:latest
 
+# Arch Linux (Rolling Release)
+archlinux:
+	cd ./images/archlinux/latest && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-archlinux:latest .
+
 # Clean up images
 clean:
 	@$(CONTAINER_ENGINE) rmi -f $$($(CONTAINER_ENGINE) images -q $(REGISTRY)/$(NAMESPACE)/molecule-systemd-* 2>/dev/null) 2>/dev/null || true
@@ -139,6 +144,7 @@ help:
 	@echo "  fedora         - Build Fedora images"
 	@echo "  ubuntu         - Build Ubuntu images"
 	@echo "  opensuse       - Build openSUSE Leap images"
+	@echo "  archlinux      - Build Arch Linux images"
 
 	@echo "  test           - Test specific image (use IMAGE=name:tag)"
 	@echo "  list           - List all built images"
@@ -153,4 +159,4 @@ help:
 	@echo "  REGISTRY         - Registry URL (default: docker.io)"
 	@echo "  NAMESPACE        - Registry namespace (default: mpaivabarbosa)"
 
-.PHONY: build amazonlinux centos rockylinux almalinux oraclelinux debian fedora ubuntu opensuse test list sizes clean clean-dangling login help
+.PHONY: build amazonlinux centos rockylinux almalinux oraclelinux debian fedora ubuntu opensuse archlinux test list sizes clean clean-dangling login help

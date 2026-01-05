@@ -7,8 +7,8 @@
 
 ![Docker Pulls](https://img.shields.io/docker/pulls/mpaivabarbosa/molecule-systemd-ubuntu?logo=docker&label=docker%20pulls)
 ![Docker Image Size](https://img.shields.io/docker/image-size/mpaivabarbosa/molecule-systemd-ubuntu/latest?logo=docker&label=image%20size)
-![Supported Platforms](https://img.shields.io/badge/platforms-38%20images-blue?logo=docker)
-![Distributions](https://img.shields.io/badge/distributions-8%20families-green?logo=linux)
+![Supported Platforms](https://img.shields.io/badge/platforms-39%20images-blue?logo=docker)
+![Distributions](https://img.shields.io/badge/distributions-9%20families-green?logo=linux)
 
 ![Ansible](https://img.shields.io/badge/ansible-molecule%20ready-red?logo=ansible)
 ![Podman](https://img.shields.io/badge/podman-supported-purple?logo=podman)
@@ -103,6 +103,9 @@ Molecule encourages an approach that results in consistently developed roles tha
     * `latest`, `15.6`
     * `15.5`, `15.4`
 
+  * **[Arch Linux](https://hub.docker.com/r/mpaivabarbosa/molecule-systemd-archlinux)**
+    * `latest` (rolling release)
+
 ## Distribution Comparison
 
 | Distribution | Use Case | Package Manager | Release Cycle | Best For |
@@ -115,12 +118,14 @@ Molecule encourages an approach that results in consistently developed roles tha
 | **Ubuntu 24.04 LTS** | Modern & popular | apt | 5 years (LTS) | Cloud, DevOps, modern tooling |
 | **Fedora 44** | Cutting edge | dnf | ~6 months | Latest features, development |
 | **openSUSE Leap 15.6** | SUSE Enterprise | zypper | 18 months | SUSE environments, SAP workloads |
+| **Arch Linux** | Bleeding edge | pacman | Rolling | Latest software, development |
 
 **Quick Selection Guide:**
 - 🏢 **Enterprise/Production-like:** Rocky Linux, AlmaLinux, Oracle Linux
 - ☁️ **Cloud Native:** Ubuntu LTS, Amazon Linux
-- 🔬 **Development/Testing:** Fedora, Debian
+- 🔬 **Development/Testing:** Fedora, Debian, Arch Linux
 - 🏛️ **SUSE Environments:** openSUSE Leap
+- 🚀 **Bleeding Edge:** Arch Linux, Fedora
 - 📦 **Legacy Support:** CentOS (EOL)
 
 ## How to Use with Podman

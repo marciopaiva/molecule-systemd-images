@@ -1,3 +1,101 @@
+# Release v2.4.0 - Arch Linux Support
+
+## 🎉 New Distribution Family
+
+### 🐧 **Arch Linux (Rolling Release)**
+- **Arch Linux latest**: Rolling release with bleeding-edge packages
+- Always up-to-date with the latest software versions
+- Perfect for testing with cutting-edge tools and libraries
+
+## 📦 **Updated Image Count**
+
+**39 container images** across **9 distributions** (was 38 across 8):
+
+### **RHEL Family (14 images)**
+- **Amazon Linux**: 2, 2023 (latest)
+- **CentOS**: 7, 8 (EOL - legacy support)
+- **Rocky Linux**: 8, 9 (latest)
+- **AlmaLinux**: 8, 9, 10 (latest)
+- **Oracle Linux**: 8, 9, 10 (latest)
+
+### **Debian Family (12 images)**
+- **Debian**: 9, 10, 11, 12, 13 (latest)
+- **Ubuntu**: 18.04, 19.10, 20.04, 21.04, 22.04, 23.04, 24.04 (latest)
+
+### **Fedora (11 images)**
+- **Fedora**: 31, 32, 36, 37, 38, 39, 40, 41, 42, 43, 44 (latest)
+
+### **SUSE Family (3 images)**
+- **openSUSE Leap**: 15.4, 15.5, 15.6 (latest)
+
+### **Arch Linux (1 image)** ✨ **NEW**
+- **Arch Linux**: latest (rolling release)
+
+## ✨ **What's Changed**
+
+### 🏷️ **Latest Tag Updates**
+- `archlinux:latest` → Rolling release (new)
+
+### 🔧 **Build System**
+- **Makefile**: New `archlinux` target added
+- **GitHub Actions**: Matrix expanded to build all 39 images
+- **CI/CD**: Automated builds for Arch Linux
+- **Docker Hub**: Auto-update descriptions on successful builds
+
+### 📚 **Documentation**
+- Added Arch Linux README with usage examples
+- Main README updated with 9 distribution families
+- Distribution comparison table includes Arch Linux
+- All badges and shields updated
+
+## 🚀 **Usage Examples**
+
+### Using Arch Linux (Rolling Release)
+```yaml
+platforms:
+  - name: archlinux-latest
+    image: docker.io/mpaivabarbosa/molecule-systemd-archlinux:latest
+    pre_build_image: true
+    privileged: true
+    command: /usr/lib/systemd/systemd
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    cgroupns_mode: host
+```
+
+## 🔍 **Why Arch Linux?**
+
+- ✅ **Bleeding Edge** - Latest software versions, cutting-edge packages
+- ✅ **Rolling Release** - Continuous updates, no version upgrades needed
+- ✅ **Pacman** - Fast, powerful package manager
+- ✅ **AUR Support** - Largest community-maintained package repository
+- ✅ **Lightweight** - Minimal base, install only what you need
+- ✅ **Development** - Perfect for testing with latest tools
+
+## ⚠️ **Important Notes**
+
+**Rolling Release Considerations:**
+- Images are rebuilt regularly to stay current
+- Breaking changes may occur without version bumps
+- Test roles frequently (weekly recommended)
+- Consider pinning specific package versions for critical dependencies
+- Monitor [Arch Linux News](https://archlinux.org/news/) for breaking changes
+
+## 📋 **Package Management**
+
+```bash
+# Update system
+pacman -Syu
+
+# Install packages
+pacman -S package_name
+
+# Search packages
+pacman -Ss keyword
+```
+
+---
+
 # Release v2.3.0 - openSUSE Leap Support
 
 ## 🎉 New Distribution Family

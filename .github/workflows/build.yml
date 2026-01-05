@@ -94,6 +94,8 @@ jobs:
             version: "15.5"
           - os: opensuse
             version: "15.6"
+          - os: archlinux
+            version: "latest"
 
     steps:
     - name: Checkout
@@ -120,6 +122,8 @@ jobs:
           IMAGE_PATH="images/fedora/${{ matrix.version }}"
         elif [[ "${{ matrix.os }}" == "opensuse" ]]; then
           IMAGE_PATH="images/opensuse/${{ matrix.version }}"
+        elif [[ "${{ matrix.os }}" == "archlinux" ]]; then
+          IMAGE_PATH="images/archlinux/${{ matrix.version }}"
         fi
         
         cd "${IMAGE_PATH}"
@@ -134,7 +138,8 @@ jobs:
         (matrix.os == 'debian' && matrix.version == '13') ||
         (matrix.os == 'fedora' && matrix.version == '44') ||
         (matrix.os == 'ubuntu' && matrix.version == '24.04') ||
-        (matrix.os == 'opensuse' && matrix.version == '15.6')
+        (matrix.os == 'opensuse' && matrix.version == '15.6') ||
+        (matrix.os == 'archlinux' && matrix.version == 'latest')
       run: |
         podman tag ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/molecule-systemd-${{ matrix.os }}:${{ matrix.version }} ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/molecule-systemd-${{ matrix.os }}:latest
 
@@ -157,6 +162,8 @@ jobs:
           README_PATH="./images/fedora/README.md"
         elif [ "${{ matrix.os }}" = "opensuse" ]; then
           README_PATH="./images/opensuse/README.md"
+        elif [ "${{ matrix.os }}" = "archlinux" ]; then
+          README_PATH="./images/archlinux/README.md"
         else
           README_PATH="./README.md"
         fi

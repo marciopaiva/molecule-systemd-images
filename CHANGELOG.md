@@ -2,6 +2,43 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.4.0] - 2026-01-05
+
+### Added
+- **New Distribution Family: Arch Linux**
+  - Arch Linux (rolling release) - Always up-to-date
+- **Distribution Family Expansion**:
+  - Arch Linux family added (rolling release distribution)
+  - 9 distribution families now supported (was 8)
+- **Image Count Increase**:
+  - Total images: 39 (was 38)
+  - New image: Arch Linux latest (rolling)
+
+### Changed
+- **Latest Tags Updated**:
+  - `archlinux:latest` (new, rolling release)
+- **GitHub Actions**: 
+  - Matrix updated to build 39 images across all distributions
+  - Added Docker Hub description auto-update for Arch Linux
+- **Makefile**: 
+  - Added Arch Linux build target
+  - Updated supported distributions list
+  - Added archlinux to build target
+- **Documentation**:
+  - README.md: Updated to reflect 39 images across 9 families
+  - Added Arch Linux README with usage examples
+  - Updated main README with Arch Linux section
+  - Updated distribution comparison table
+
+### Technical Details
+- Arch Linux uses pacman package manager
+- Rolling release model - always latest packages
+- systemd enabled and configured
+- Python 3.12+ and pip pre-installed
+- ansible user with passwordless sudo access (wheel group)
+- Compatible with Molecule testing framework
+- Best for testing with bleeding-edge software versions
+
 ## [2.3.0] - 2026-01-05
 
 ### Added
