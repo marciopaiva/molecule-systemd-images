@@ -23,11 +23,24 @@ All notable changes to this project will be documented in this file.
 - **Makefile**: Added new version targets and updated latest tag pointers for ubuntu, opensuse and rockylinux
 - **Documentation**: README.md and family READMEs updated to reflect the new versions and image count
 
+### Added
+- **CI**: a smoke test step now runs after every image build and before it is pushed. It boots the container, waits for `systemctl is-system-running` to report `running` or `degraded`, and checks passwordless sudo for the `ansible` user; a failure blocks the push
+- **CI**: a Trivy vulnerability scan (HIGH/CRITICAL, report only, does not fail the build) runs on every built image
+- **scripts/build-all.sh**: now also builds openSUSE Leap and Arch Linux, which it previously skipped entirely, and Oracle Linux, which was missing from its RHEL family loop
+
 ### Fixed
 - **Arch Linux Dockerfile**: corrected a sudoers `%wheel` rule corruption bug (the uncomment sed matched both template lines in the default sudoers file, and the following sed then produced invalid syntax, breaking sudo); the image now also refreshes `archlinux-keyring` before `pacman -Syu` and validates the sudoers file with `visudo -c` at build time
+- **scripts/build-all.sh**: fixed `set -e` combined with `((total++))` causing the script to exit immediately on the very first counter increment (an arithmetic expression that evaluates to `0` returns a false exit status), so the script never actually built anything; counters now use `total=$((total + 1))`
+- **Molecule install instructions**: `pip install molecule[containers]` no longer works since current Molecule (26.x) ships with no extras; replaced with `pip install molecule molecule-plugins[podman]` everywhere, and added the `community.docker` and `ansible.posix` collections the containers driver actually requires alongside `containers.podman`
+- **examples/molecule.yml**: added the missing `examples/requirements.yml` it has referenced since it was written
+- **molecule.yml examples**: removed `cgroupns_mode`, an invalid platform key for the containers driver (`additionalProperties: false` in its schema); copying these examples as documented would fail schema validation
+- **README.md**: fixed a troubleshooting example that misused `dockerfile:` with inline Dockerfile content instead of a path to a `Dockerfile.j2` template
+
+### Changed
+- **Documentation**: flagged Amazon Linux 2 as EOL (since 2026-06-30) in its family README and in the main README, matching the existing CentOS EOL notice
 
 ### Technical Details
-- Rocky Linux 10's Dockerfile pulls `rockylinux/rockylinux:10`, not `rockylinux:10` — the official `docker.io/library/rockylinux` image does not publish a `10` tag, only Rocky's own Docker Hub namespace does
+- Rocky Linux 10's Dockerfile pulls `rockylinux/rockylinux:10`, not `rockylinux:10`. The official `docker.io/library/rockylinux` image does not publish a `10` tag, only Rocky's own Docker Hub namespace does
 - openSUSE Leap 16.0 ships its default sudo policy under `/usr/etc/sudoers` instead of `/etc/sudoers`; the existing `/etc/sudoers.d` based ansible user setup already works with this layout without changes
 
 ## [2.4.0] - 2026-01-05

@@ -70,7 +70,7 @@ Molecule encourages an approach that results in consistently developed roles tha
 
   * **[Amazon Linux](https://hub.docker.com/r/mpaivabarbosa/molecule-systemd-amazonlinux)**
     * `latest`, `2023`
-    * `2`
+    * `2` (EOL since 2026-06-30)
   
   * **[CentOS](https://hub.docker.com/r/mpaivabarbosa/molecule-systemd-centos)** (Legacy)
     * `8`, `7`

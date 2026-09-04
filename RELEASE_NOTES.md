@@ -102,7 +102,7 @@ platforms:
 
 ## ⚙️ **Technical Notes**
 
-- Rocky Linux 10's Dockerfile pulls `rockylinux/rockylinux:10`, not `rockylinux:10` — the official `docker.io/library/rockylinux` image does not publish a `10` tag yet, only Rocky's own Docker Hub namespace does
+- Rocky Linux 10's Dockerfile pulls `rockylinux/rockylinux:10`, not `rockylinux:10`. The official `docker.io/library/rockylinux` image does not publish a `10` tag yet, only Rocky's own Docker Hub namespace does
 - openSUSE Leap 16.0 ships its default sudo policy under `/usr/etc/sudoers` instead of `/etc/sudoers`; the existing `/etc/sudoers.d` based ansible user setup already works correctly with this layout
 
 ---

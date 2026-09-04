@@ -9,10 +9,12 @@ Container images for testing Ansible roles with Molecule using Amazon Linux dist
 
 **Repository:** https://github.com/marciopaiva/molecule-systemd-images
 
+⚠️ **Note**: Amazon Linux 2 reached End of Life on 2026-06-30. Use Amazon Linux 2023 for new projects.
+
 ## Available Tags
 
 - `latest`, `2023` - Amazon Linux 2023 (recommended)
-- `2` - Amazon Linux 2
+- `2` - Amazon Linux 2 ⚠️ **EOL since 2026-06-30**, use `2023` for new projects
 
 ## Usage
 
