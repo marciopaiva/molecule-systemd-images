@@ -191,7 +191,6 @@ platforms:
   image: mpaivabarbosa/molecule-systemd-opensuse:15.6
   volumes:
     - /sys/fs/cgroup:/sys/fs/cgroup:rw
-  cgroupns_mode: host
   privileged: true
   pre_build_image: true
   override_command: false
@@ -326,7 +325,6 @@ platforms:
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw  # Note: rw for some distros
-    cgroupns_mode: host
     command: /usr/lib/systemd/systemd  # or /usr/sbin/init
 ```
 
@@ -348,12 +346,17 @@ podman pull docker.io/mpaivabarbosa/molecule-systemd-ubuntu:24.04
 
 **Problem: Slow container startup**
 ```yaml
-# Solution: Disable unnecessary systemd services
-platforms:
-  - name: instance
-    dockerfile: |
-      FROM mpaivabarbosa/molecule-systemd-ubuntu:24.04
-      RUN systemctl disable unwanted.service
+# Solution: Disable unnecessary systemd services in prepare.yml
+# (molecule/default/prepare.yml)
+---
+- name: Prepare
+  hosts: all
+  tasks:
+    - name: Disable unwanted service
+      ansible.builtin.systemd:
+        name: unwanted.service
+        enabled: false
+        masked: true
 ```
 
 **Problem: cgroup v2 issues on older systems**

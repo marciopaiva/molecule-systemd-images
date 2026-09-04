@@ -71,7 +71,6 @@ platforms:
 platforms:
   - name: almalinux
     privileged: true
-    cgroupns_mode: host
 ```
 
 ## Links

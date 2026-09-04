@@ -103,7 +103,6 @@ platforms:
     command: /usr/lib/systemd/systemd
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
-    cgroupns_mode: host
 ```
 
 ## Important Notes
