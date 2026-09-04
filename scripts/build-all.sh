@@ -58,13 +58,13 @@ main() {
     local total=0
     
     # RHEL family
-    for os in amazonlinux centos rockylinux almalinux; do
+    for os in amazonlinux centos rockylinux almalinux oraclelinux; do
         for version_dir in images/rhel-family/${os}/*/; do
             if [ -d "$version_dir" ]; then
                 version=$(basename "$version_dir")
-                ((total++))
+                total=$((total + 1))
                 if ! build_image "rhel-family" "$os" "$version"; then
-                    ((failed++))
+                    failed=$((failed + 1))
                 fi
             fi
         done
@@ -75,9 +75,9 @@ main() {
         for version_dir in images/debian-family/${os}/*/; do
             if [ -d "$version_dir" ]; then
                 version=$(basename "$version_dir")
-                ((total++))
+                total=$((total + 1))
                 if ! build_image "debian-family" "$os" "$version"; then
-                    ((failed++))
+                    failed=$((failed + 1))
                 fi
             fi
         done
@@ -87,13 +87,35 @@ main() {
     for version_dir in images/fedora/*/; do
         if [ -d "$version_dir" ]; then
             version=$(basename "$version_dir")
-            ((total++))
+            total=$((total + 1))
             if ! build_image "" "fedora" "$version"; then
-                ((failed++))
+                failed=$((failed + 1))
             fi
         fi
     done
-    
+
+    # openSUSE Leap
+    for version_dir in images/opensuse/*/; do
+        if [ -d "$version_dir" ]; then
+            version=$(basename "$version_dir")
+            total=$((total + 1))
+            if ! build_image "" "opensuse" "$version"; then
+                failed=$((failed + 1))
+            fi
+        fi
+    done
+
+    # Arch Linux (rolling release)
+    for version_dir in images/archlinux/*/; do
+        if [ -d "$version_dir" ]; then
+            version=$(basename "$version_dir")
+            total=$((total + 1))
+            if ! build_image "" "archlinux" "$version"; then
+                failed=$((failed + 1))
+            fi
+        fi
+    done
+
     # Summary
     log "Build completed: $((total - failed))/${total} successful"
     
