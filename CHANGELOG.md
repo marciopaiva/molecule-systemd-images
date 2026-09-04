@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.5.0] - 2026-09-04
+
+### Added
+- **New OS Versions**:
+  - Ubuntu 26.04 LTS Resolute (new LTS, support until 2031)
+  - openSUSE Leap 16.0 (new major release, support until 2031)
+  - Rocky Linux 10 (matches AlmaLinux and Oracle Linux 10 already supported)
+- **Image Count Increase**:
+  - Total images: 42 (was 39)
+
+### Changed
+- **Latest Tags Updated**:
+  - `ubuntu:latest` → 26.04 (was 24.04)
+  - `opensuse:latest` → 16.0 (was 15.6)
+  - `rockylinux:latest` → 10 (was 9)
+- **GitHub Actions**:
+  - Matrix updated to build 42 images across all distributions
+  - `fail-fast: false` added so one distribution failing does not cancel the rest of a scheduled run
+- **Makefile**: Added new version targets and updated latest tag pointers for ubuntu, opensuse and rockylinux
+- **Documentation**: README.md and family READMEs updated to reflect the new versions and image count
+
+### Fixed
+- **Arch Linux Dockerfile**: corrected a sudoers `%wheel` rule corruption bug (the uncomment sed matched both template lines in the default sudoers file, and the following sed then produced invalid syntax, breaking sudo); the image now also refreshes `archlinux-keyring` before `pacman -Syu` and validates the sudoers file with `visudo -c` at build time
+
+### Technical Details
+- Rocky Linux 10's Dockerfile pulls `rockylinux/rockylinux:10`, not `rockylinux:10` — the official `docker.io/library/rockylinux` image does not publish a `10` tag, only Rocky's own Docker Hub namespace does
+- openSUSE Leap 16.0 ships its default sudo policy under `/usr/etc/sudoers` instead of `/etc/sudoers`; the existing `/etc/sudoers.d` based ansible user setup already works with this layout without changes
+
 ## [2.4.0] - 2026-01-05
 
 ### Added

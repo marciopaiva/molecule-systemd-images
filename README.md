@@ -7,7 +7,7 @@
 
 ![Docker Pulls](https://img.shields.io/docker/pulls/mpaivabarbosa/molecule-systemd-ubuntu?logo=docker&label=docker%20pulls)
 ![Docker Image Size](https://img.shields.io/docker/image-size/mpaivabarbosa/molecule-systemd-ubuntu/latest?logo=docker&label=image%20size)
-![Supported Platforms](https://img.shields.io/badge/platforms-39%20images-blue?logo=docker)
+![Supported Platforms](https://img.shields.io/badge/platforms-42%20images-blue?logo=docker)
 ![Distributions](https://img.shields.io/badge/distributions-9%20families-green?logo=linux)
 
 ![Ansible](https://img.shields.io/badge/ansible-molecule%20ready-red?logo=ansible)
@@ -64,7 +64,7 @@ Molecule encourages an approach that results in consistently developed roles tha
 
 ## Supported Images
 
-**38 container images** across **8 distributions** with **38 versions**:
+**42 container images** across **9 distributions**:
 
 > All images are automatically built and tested via GitHub Actions, ensuring reliability and consistency.
 
@@ -76,8 +76,8 @@ Molecule encourages an approach that results in consistently developed roles tha
     * `8`, `7`
 
   * **[Rocky Linux](https://hub.docker.com/r/mpaivabarbosa/molecule-systemd-rockylinux)**
-    * `latest`, `9`
-    * `8`
+    * `latest`, `10`
+    * `9`, `8`
 
   * **[AlmaLinux](https://hub.docker.com/r/mpaivabarbosa/molecule-systemd-almalinux)**
     * `latest`, `10`
@@ -96,12 +96,12 @@ Molecule encourages an approach that results in consistently developed roles tha
     * `43`, `42`, `41`, `40`, `39`, `38`, `37`, `36`, `32`, `31`
 
   * **[Ubuntu](https://hub.docker.com/r/mpaivabarbosa/molecule-systemd-ubuntu)**
-    * `latest`, `24.04`
-    * `23.04`, `22.04`, `21.04`, `20.04`, `19.10`, `18.04`
+    * `latest`, `26.04`
+    * `24.04`, `23.04`, `22.04`, `21.04`, `20.04`, `19.10`, `18.04`
 
   * **[openSUSE Leap](https://hub.docker.com/r/mpaivabarbosa/molecule-systemd-opensuse)**
-    * `latest`, `15.6`
-    * `15.5`, `15.4`
+    * `latest`, `16.0`
+    * `15.6`, `15.5`, `15.4`
 
   * **[Arch Linux](https://hub.docker.com/r/mpaivabarbosa/molecule-systemd-archlinux)**
     * `latest` (rolling release)
@@ -111,13 +111,13 @@ Molecule encourages an approach that results in consistently developed roles tha
 | Distribution | Use Case | Package Manager | Release Cycle | Best For |
 |--------------|----------|-----------------|---------------|----------|
 | **Amazon Linux 2023** | AWS workloads | yum/dnf | Rolling | AWS-specific testing, Lambda functions |
-| **Rocky Linux 9** | RHEL alternative | dnf | ~10 years | Enterprise, CentOS replacement |
+| **Rocky Linux 10** | RHEL alternative | dnf | ~10 years | Enterprise, CentOS replacement |
 | **AlmaLinux 10** | RHEL alternative | dnf | ~10 years | Enterprise, latest RHEL features |
 | **Oracle Linux 10** | Enterprise | dnf | ~10 years | Oracle DB, enterprise apps |
 | **Debian 13** | Stability | apt | ~5 years | General purpose, stable environments |
-| **Ubuntu 24.04 LTS** | Modern & popular | apt | 5 years (LTS) | Cloud, DevOps, modern tooling |
+| **Ubuntu 26.04 LTS** | Modern & popular | apt | 5 years (LTS) | Cloud, DevOps, modern tooling |
 | **Fedora 44** | Cutting edge | dnf | ~6 months | Latest features, development |
-| **openSUSE Leap 15.6** | SUSE Enterprise | zypper | 18 months | SUSE environments, SAP workloads |
+| **openSUSE Leap 16.0** | SUSE Enterprise | zypper | 18 months | SUSE environments, SAP workloads |
 | **Arch Linux** | Bleeding edge | pacman | Rolling | Latest software, development |
 
 **Quick Selection Guide:**

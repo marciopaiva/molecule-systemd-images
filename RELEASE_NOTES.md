@@ -1,3 +1,112 @@
+# Release v2.5.0 - Ubuntu 26.04, openSUSE Leap 16.0 and Rocky Linux 10
+
+## 🎉 New Version Additions
+
+### 🟠 **Ubuntu 26.04 LTS**
+- Latest Ubuntu LTS release (Resolute Raccoon), support until 2031
+- Becomes the new `ubuntu:latest`
+
+### 🦎 **openSUSE Leap 16.0**
+- New major Leap generation, support until 2031
+- Becomes the new `opensuse:latest`
+
+### 🔷 **Rocky Linux 10**
+- Matches AlmaLinux and Oracle Linux, which already offer version 10
+- Becomes the new `rockylinux:latest`
+
+## 📦 **Updated Image Count**
+
+**42 container images** across **9 distributions** (was 39):
+
+### **RHEL Family (15 images)**
+- **Amazon Linux**: 2, 2023 (latest)
+- **CentOS**: 7, 8 (EOL - legacy support)
+- **Rocky Linux**: 8, 9, 10 (latest) ✨ **NEW VERSION**
+- **AlmaLinux**: 8, 9, 10 (latest)
+- **Oracle Linux**: 8, 9, 10 (latest)
+
+### **Debian Family (13 images)**
+- **Debian**: 9, 10, 11, 12, 13 (latest)
+- **Ubuntu**: 18.04, 19.10, 20.04, 21.04, 22.04, 23.04, 24.04, 26.04 (latest) ✨ **NEW VERSION**
+
+### **Fedora (11 images)**
+- **Fedora**: 31, 32, 36, 37, 38, 39, 40, 41, 42, 43, 44 (latest)
+
+### **SUSE Family (4 images)**
+- **openSUSE Leap**: 15.4, 15.5, 15.6, 16.0 (latest) ✨ **NEW VERSION**
+
+### **Arch Linux (1 image)**
+- **Arch Linux**: latest (rolling release)
+
+## ✨ **What's Changed**
+
+### 🏷️ **Latest Tag Updates**
+- `ubuntu:latest` → now points to version 26.04 (was 24.04)
+- `opensuse:latest` → now points to version 16.0 (was 15.6)
+- `rockylinux:latest` → now points to version 10 (was 9)
+
+### 🔧 **Build System**
+- **Makefile**: Added ubuntu:26.04, opensuse:16.0 and rockylinux:10 targets; updated latest tag pointers
+- **GitHub Actions**: Matrix expanded to build all 42 images; added `fail-fast: false` so one distribution failing does not cancel the rest of a scheduled run
+
+### 📚 **Documentation**
+- Updated Ubuntu, openSUSE and Rocky Linux READMEs with the new versions
+- Main README updated to reflect 42 total images
+- All badges and shields updated
+
+## 🚀 **Usage Examples**
+
+### Using Ubuntu 26.04 LTS
+```yaml
+platforms:
+  - name: ubuntu-26
+    image: docker.io/mpaivabarbosa/molecule-systemd-ubuntu:26.04
+    pre_build_image: true
+    privileged: true
+    command: /lib/systemd/systemd
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+```
+
+### Using openSUSE Leap 16.0
+```yaml
+platforms:
+  - name: opensuse-leap-16-0
+    image: docker.io/mpaivabarbosa/molecule-systemd-opensuse:16.0
+    pre_build_image: true
+    privileged: true
+    command: /usr/lib/systemd/systemd
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    cgroupns_mode: host
+```
+
+### Using Rocky Linux 10
+```yaml
+platforms:
+  - name: rockylinux-10
+    image: docker.io/mpaivabarbosa/molecule-systemd-rockylinux:10
+    pre_build_image: true
+    privileged: true
+    command: /usr/sbin/init
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+```
+
+## 🐛 **Bug Fix (Arch Linux)**
+
+- Corrected a sudoers `%wheel` rule corruption bug in the Arch Linux image: the uncomment sed was matching both template lines in the default sudoers file, and the following sed then produced invalid syntax, breaking sudo for every user
+- `archlinux-keyring` is now refreshed before `pacman -Syu` to avoid intermittent PGP signature failures on rebuilds
+- The sudoers file is now validated with `visudo -c` at build time
+- GitHub Actions matrix now uses `fail-fast: false` so an Arch Linux build failure does not cancel the other 41 image builds in the same run
+
+## ⚙️ **Technical Notes**
+
+- Rocky Linux 10's Dockerfile pulls `rockylinux/rockylinux:10`, not `rockylinux:10` — the official `docker.io/library/rockylinux` image does not publish a `10` tag yet, only Rocky's own Docker Hub namespace does
+- openSUSE Leap 16.0 ships its default sudo policy under `/usr/etc/sudoers` instead of `/etc/sudoers`; the existing `/etc/sudoers.d` based ansible user setup already works correctly with this layout
+
+---
+
 # Release v2.4.0 - Arch Linux Support
 
 ## 🎉 New Distribution Family

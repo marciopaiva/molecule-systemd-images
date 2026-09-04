@@ -2,7 +2,7 @@
 
 ![Docker Pulls](https://img.shields.io/docker/pulls/mpaivabarbosa/molecule-systemd-ubuntu?logo=docker&label=pulls)
 ![Docker Image Size](https://img.shields.io/docker/image-size/mpaivabarbosa/molecule-systemd-ubuntu/latest?logo=docker&label=size)
-![Ubuntu](https://img.shields.io/badge/ubuntu-24.04%20LTS-orange?logo=ubuntu)
+![Ubuntu](https://img.shields.io/badge/ubuntu-26.04%20LTS-orange?logo=ubuntu)
 ![Systemd](https://img.shields.io/badge/systemd-enabled-green?logo=systemd)
 
 Container images for testing Ansible roles with Molecule using Ubuntu distributions.
@@ -12,7 +12,8 @@ Container images for testing Ansible roles with Molecule using Ubuntu distributi
 ## Available Tags
 
 **LTS Releases (Recommended):**
-- `latest`, `24.04` - Ubuntu 24.04 LTS Noble (until 2029)
+- `latest`, `26.04` - Ubuntu 26.04 LTS Resolute (until 2031)
+- `24.04` - Ubuntu 24.04 LTS Noble (until 2029)
 - `22.04` - Ubuntu 22.04 LTS Jammy (until 2027)
 - `20.04` - Ubuntu 20.04 LTS Focal (until 2025)
 - `18.04` - Ubuntu 18.04 LTS Bionic (until 2023)
@@ -42,8 +43,8 @@ Container images for testing Ansible roles with Molecule using Ubuntu distributi
 
 ```yaml
 platforms:
-  - name: ubuntu-24
-    image: mpaivabarbosa/molecule-systemd-ubuntu:24.04
+  - name: ubuntu-26
+    image: mpaivabarbosa/molecule-systemd-ubuntu:26.04
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
@@ -60,6 +61,7 @@ platforms:
 ## LTS Recommendations
 
 For production testing, prefer LTS versions:
+- Ubuntu 26.04 LTS (until 2031)
 - Ubuntu 24.04 LTS (until 2029)
 - Ubuntu 22.04 LTS (until 2027)
 - Ubuntu 20.04 LTS (until 2025)

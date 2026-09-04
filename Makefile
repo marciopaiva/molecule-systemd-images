@@ -9,13 +9,13 @@
 # Supported distributions:
 #   - Amazon Linux (2, 2023)
 #   - CentOS (7, 8) - Legacy
-#   - Rocky Linux (8, 9)
+#   - Rocky Linux (8, 9, 10)
 #   - AlmaLinux (8, 9, 10)
 #   - Oracle Linux (8, 9, 10)
 #   - Debian (9, 10, 11, 12, 13)
 #   - Fedora (31, 32, 36-44)
-#   - Ubuntu (18.04, 19.10, 20.04, 21.04, 22.04, 23.04, 24.04)
-#   - openSUSE Leap (15.4, 15.5, 15.6)
+#   - Ubuntu (18.04, 19.10, 20.04, 21.04, 22.04, 23.04, 24.04, 26.04)
+#   - openSUSE Leap (15.4, 15.5, 15.6, 16.0)
 #   - Arch Linux (rolling)
 #
 # Usage:
@@ -62,7 +62,8 @@ centos:
 rockylinux:
 	cd ./images/rhel-family/rockylinux/8 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-rockylinux:8 .
 	cd ./images/rhel-family/rockylinux/9 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-rockylinux:9 .
-	$(CONTAINER_ENGINE) tag $(REGISTRY)/$(NAMESPACE)/molecule-systemd-rockylinux:9 $(REGISTRY)/$(NAMESPACE)/molecule-systemd-rockylinux:latest
+	cd ./images/rhel-family/rockylinux/10 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-rockylinux:10 .
+	$(CONTAINER_ENGINE) tag $(REGISTRY)/$(NAMESPACE)/molecule-systemd-rockylinux:10 $(REGISTRY)/$(NAMESPACE)/molecule-systemd-rockylinux:latest
 
 almalinux:
 	cd ./images/rhel-family/almalinux/8 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-almalinux:8 .
@@ -106,14 +107,16 @@ ubuntu:
 	cd ./images/debian-family/ubuntu/22.04 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-ubuntu:22.04 .
 	cd ./images/debian-family/ubuntu/23.04 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-ubuntu:23.04 .
 	cd ./images/debian-family/ubuntu/24.04 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-ubuntu:24.04 .
-	$(CONTAINER_ENGINE) tag $(REGISTRY)/$(NAMESPACE)/molecule-systemd-ubuntu:24.04 $(REGISTRY)/$(NAMESPACE)/molecule-systemd-ubuntu:latest
+	cd ./images/debian-family/ubuntu/26.04 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-ubuntu:26.04 .
+	$(CONTAINER_ENGINE) tag $(REGISTRY)/$(NAMESPACE)/molecule-systemd-ubuntu:26.04 $(REGISTRY)/$(NAMESPACE)/molecule-systemd-ubuntu:latest
 
 # openSUSE Leap
 opensuse:
 	cd ./images/opensuse/15.4 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-opensuse:15.4 .
 	cd ./images/opensuse/15.5 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-opensuse:15.5 .
 	cd ./images/opensuse/15.6 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-opensuse:15.6 .
-	$(CONTAINER_ENGINE) tag $(REGISTRY)/$(NAMESPACE)/molecule-systemd-opensuse:15.6 $(REGISTRY)/$(NAMESPACE)/molecule-systemd-opensuse:latest
+	cd ./images/opensuse/16.0 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-opensuse:16.0 .
+	$(CONTAINER_ENGINE) tag $(REGISTRY)/$(NAMESPACE)/molecule-systemd-opensuse:16.0 $(REGISTRY)/$(NAMESPACE)/molecule-systemd-opensuse:latest
 
 # Arch Linux (Rolling Release)
 archlinux:

@@ -2,7 +2,7 @@
 
 ![Docker Pulls](https://img.shields.io/docker/pulls/mpaivabarbosa/molecule-systemd-rockylinux?logo=docker&label=pulls)
 ![Docker Image Size](https://img.shields.io/docker/image-size/mpaivabarbosa/molecule-systemd-rockylinux/latest?logo=docker&label=size)
-![Rocky Linux](https://img.shields.io/badge/rocky%20linux-9-blue?logo=rockylinux)
+![Rocky Linux](https://img.shields.io/badge/rocky%20linux-10-blue?logo=rockylinux)
 ![Systemd](https://img.shields.io/badge/systemd-enabled-green?logo=systemd)
 
 Rocky Linux is a community enterprise operating system designed to be 100% bug-for-bug compatible with Red Hat Enterprise Linux.
@@ -11,15 +11,16 @@ Rocky Linux is a community enterprise operating system designed to be 100% bug-f
 
 ## Available Tags
 
-- `latest`, `9` - Rocky Linux 9 (recommended)
+- `latest`, `10` - Rocky Linux 10 (recommended)
+- `9` - Rocky Linux 9
 - `8` - Rocky Linux 8
 
 ## Usage
 
 ```yaml
 platforms:
-  - name: rockylinux-9
-    image: mpaivabarbosa/molecule-systemd-rockylinux:9
+  - name: rockylinux-10
+    image: mpaivabarbosa/molecule-systemd-rockylinux:10
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true

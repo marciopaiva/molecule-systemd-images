@@ -1,13 +1,14 @@
 # openSUSE Leap Container Images for Molecule
 
-![openSUSE Leap](https://img.shields.io/badge/openSUSE%20Leap-15.6-73ba25?logo=opensuse)
+![openSUSE Leap](https://img.shields.io/badge/openSUSE%20Leap-16.0-73ba25?logo=opensuse)
 
 Pre-built openSUSE Leap container images for testing Ansible roles using Molecule.
 
 ## Available Tags
 
 **LTS Releases:**
-- `latest`, `15.6` - openSUSE Leap 15.6 (until 2025-12)
+- `latest`, `16.0` - openSUSE Leap 16.0 (until 2031)
+- `15.6` - openSUSE Leap 15.6 (until 2025-12)
 - `15.5` - openSUSE Leap 15.5 (until 2024-12)
 - `15.4` - openSUSE Leap 15.4 (until 2023-12)
 
@@ -38,6 +39,7 @@ Pre-built openSUSE Leap container images for testing Ansible roles using Molecul
 
 | Tag | Size | Python Version | systemd Version | Support Until |
 |-----|------|----------------|----------------|---------------|
+| 16.0 | ~378MB | 3.13 | 257+ | 2031 |
 | 15.6 | ~180MB | 3.6 | 254+ | December 2025 |
 | 15.5 | ~175MB | 3.6 | 249+ | December 2024 |
 | 15.4 | ~170MB | 3.6 | 249+ | December 2023 |
