@@ -87,11 +87,15 @@ ERROR: Driver 'containers' not found
 
 **Solutions:**
 ```bash
-# Install containers.podman collection
-ansible-galaxy collection install containers.podman
+# The containers driver ships in molecule-plugins, not in molecule itself
+pip install molecule-plugins[podman]
+
+# It also requires these Ansible collections
+ansible-galaxy collection install containers.podman community.docker ansible.posix
 
 # Verify installation
-ansible-galaxy collection list | grep containers.podman
+molecule drivers
+ansible-galaxy collection list | grep -E "containers.podman|community.docker|ansible.posix"
 ```
 
 #### Issue: Image Pull Fails

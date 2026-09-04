@@ -8,14 +8,14 @@ Complete example configuration file showing:
 
 - **Modern distributions** - Latest recommended versions
 - **Legacy distributions** - For compatibility testing
-- **Optimized settings** - Best practices for Molecule v6+
+- **Optimized settings** - Best practices for the Molecule containers driver
 - **Full test sequence** - Complete testing workflow
 
 ## Usage
 
 1. **Copy to your role:**
    ```bash
-   cp examples/molecule.yml your-role/molecule/default/
+   cp examples/molecule.yml examples/requirements.yml your-role/molecule/default/
    ```
 
 2. **Customize platforms:**

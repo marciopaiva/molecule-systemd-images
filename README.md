@@ -39,8 +39,8 @@ Base container images for testing using Ansible Molecule test framework with Pod
 
 ```bash
 # Install requirements
-pip install molecule[containers]
-ansible-galaxy collection install containers.podman
+pip install molecule molecule-plugins[podman]
+ansible-galaxy collection install containers.podman community.docker ansible.posix
 
 # Use in your molecule.yml
 platforms:
@@ -217,15 +217,15 @@ verifier:
 
 ## Requirements
 
-- Ansible Molecule >= 6.0
-- containers.podman collection
+- Ansible Molecule (CalVer releases, e.g. 26.x) with molecule-plugins[podman]
+- containers.podman, community.docker and ansible.posix collections
 - Podman >= 4.0
 
 Install requirements:
 
 ```bash
-pip install molecule[containers]
-ansible-galaxy collection install containers.podman
+pip install molecule molecule-plugins[podman]
+ansible-galaxy collection install containers.podman community.docker ansible.posix
 ```
 
 ## Building Images Locally
@@ -390,14 +390,14 @@ If migrating from Docker to Podman:
 
 1. Install Podman: `sudo apt install podman` (Ubuntu/Debian) or `sudo dnf install podman` (Fedora/RHEL)
 2. Update molecule.yml driver from `docker` to `containers`
-3. Install containers.podman collection: `ansible-galaxy collection install containers.podman`
+3. Install required collections: `ansible-galaxy collection install containers.podman community.docker ansible.posix`
 4. Update image URLs to use Docker Hub registry
 
 ## Features
 
 - **Systemd support** - Full systemd initialization for realistic testing
 - **Ansible ready** - Pre-configured ansible user with sudo privileges
-- **Molecule optimized** - Designed specifically for Molecule v6+ testing
+- **Molecule optimized** - Designed specifically for Molecule (containers driver) testing
 - **Multi-architecture** - Built for amd64 architecture
 - **Minimal footprint** - Optimized image sizes with essential packages only
 - **EOL support** - Includes End-of-Life distributions with corrected repositories
@@ -410,8 +410,8 @@ If migrating from Docker to Podman:
 
 1. **Install requirements:**
    ```bash
-   pip install molecule[containers]
-   ansible-galaxy collection install containers.podman
+   pip install molecule molecule-plugins[podman]
+   ansible-galaxy collection install containers.podman community.docker ansible.posix
    ```
 
 2. **Use in molecule.yml:**

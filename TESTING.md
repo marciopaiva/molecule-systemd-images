@@ -1,31 +1,34 @@
 # Local Testing Guide
 
-## Current Environment Status
+## Requirements
 
-✅ **Installed:**
-- Podman 5.7.1
-- Python 3.13.3
-- Ansible 2.18.3
-- Molecule 25.12.0
-- Fedora Linux 42 (WSL)
-
-✅ **Collections:**
-- containers.podman 1.16.3
-- community.docker 4.4.0
+- Podman >= 4.0
+- Python 3.9+
+- Ansible Molecule (CalVer releases, e.g. 26.x) with `molecule-plugins[podman]`
+- Ansible collections: `containers.podman`, `community.docker`, `ansible.posix`
 
 ## Quick Start
+
+### Install Everything
+
+```bash
+pip install molecule molecule-plugins[podman]
+ansible-galaxy collection install containers.podman community.docker ansible.posix
+```
 
 ### Build Specific Distribution
 
 ```bash
 # Build latest versions
 make amazonlinux    # Amazon Linux 2, 2023
-make rockylinux     # Rocky Linux 8, 9
+make rockylinux     # Rocky Linux 8, 9, 10
 make almalinux      # AlmaLinux 8, 9, 10
 make oraclelinux    # Oracle Linux 8, 9, 10
 make debian         # Debian 9-13
-make fedora         # Fedora 31, 32, 36-42
-make ubuntu         # Ubuntu 18.04-24.04
+make fedora         # Fedora 31, 32, 36-44
+make ubuntu         # Ubuntu 18.04-24.04, 26.04
+make opensuse       # openSUSE Leap 15.4-15.6, 16.0
+make archlinux      # Arch Linux (rolling)
 
 # Build all images
 make build
@@ -44,32 +47,17 @@ podman run -d --privileged mpaivabarbosa/molecule-systemd-oraclelinux:10
 podman run --rm mpaivabarbosa/molecule-systemd-almalinux:10 cat /etc/os-release
 ```
 
-### 4. Verify Molecule Setup
+### Verify Molecule Setup
 
 ```bash
-# Check Molecule version
+# Check Molecule version and installed drivers
 molecule --version
+molecule drivers
 
-# Test Molecule with containers driver
+# Test Molecule with the containers driver
 molecule init role test-role --driver-name containers
 cd test-role
 molecule test
-```
-
-## Quick Start Commands
-
-```bash
-# Install everything at once
-pip3 install --user molecule[containers] && \
-ansible-galaxy collection install containers.podman
-
-# Build specific OS
-make rockylinux
-make ubuntu
-
-# Build and push (requires registry login)
-make build
-make release
 ```
 
 ## Troubleshooting
@@ -82,9 +70,10 @@ newgrp podman
 ```
 
 ### Registry Login
+
+Images are published to Docker Hub under `mpaivabarbosa/`:
 ```bash
-# Login to Quay.io
-podman login quay.io
+podman login docker.io
 ```
 
 ### Build Issues
@@ -93,7 +82,7 @@ podman login quay.io
 podman info
 
 # Test simple build
-podman build -t test ./ubuntu/24.04
+podman build -t test ./images/debian-family/ubuntu/24.04
 ```
 
 ## Testing Workflow
