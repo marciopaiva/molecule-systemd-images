@@ -4,7 +4,8 @@ LABEL summary="Molecule Systemd Arch Linux (Rolling Release)" \
       name="mpaivabarbosa/molecule-systemd-archlinux" \
       maintainer="Marcio Barbosa <mpaivabarbosa@gmail.com>"
 
-RUN pacman -Syu --noconfirm && \
+RUN pacman -Sy --noconfirm archlinux-keyring && \
+    pacman -Syu --noconfirm && \
     pacman -S --noconfirm systemd python python-pip sudo bash vim iproute2 procps-ng && \
     rm -rf /usr/share/doc/* && \
     rm -rf /usr/share/man/* && \
@@ -30,8 +31,9 @@ RUN set -xe && \
     groupadd -r ${ANSIBLE_USER} && \
     useradd -m -g ${ANSIBLE_USER} ${ANSIBLE_USER} && \
     usermod -aG ${SUDO_GROUP} ${ANSIBLE_USER} && \
-    sed -i "/^# %${SUDO_GROUP}/s/^# //g" /etc/sudoers && \
-    sed -i "/^%${SUDO_GROUP}/s/ALL$/NOPASSWD:ALL/g" /etc/sudoers
+    sed -i "/^# %${SUDO_GROUP} ALL=(ALL:ALL) ALL$/s/^# //" /etc/sudoers && \
+    sed -i "/^%${SUDO_GROUP}/s/ALL$/NOPASSWD:ALL/g" /etc/sudoers && \
+    visudo -c
 
 VOLUME [ "/sys/fs/cgroup", "/tmp", "/run" ]
 
