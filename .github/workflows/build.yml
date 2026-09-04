@@ -136,6 +136,55 @@ jobs:
         cd "${IMAGE_PATH}"
         podman build -t ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/molecule-systemd-${{ matrix.os }}:${{ matrix.version }} .
 
+    - name: Smoke test image
+      run: |
+        set -e
+        IMAGE="${{ env.REGISTRY }}/${{ env.NAMESPACE }}/molecule-systemd-${{ matrix.os }}:${{ matrix.version }}"
+        CONTAINER="smoketest-${{ matrix.os }}-${{ matrix.version }}"
+
+        podman run -d --name "$CONTAINER" --privileged \
+          -v /sys/fs/cgroup:/sys/fs/cgroup:rw \
+          --tmpfs /tmp --tmpfs /run \
+          "$IMAGE"
+
+        echo "Waiting for systemd to report a status..."
+        STATUS=""
+        for i in $(seq 1 30); do
+          STATUS=$(podman exec "$CONTAINER" systemctl is-system-running 2>/dev/null || true)
+          echo "  [$i] systemctl is-system-running: ${STATUS:-<empty>}"
+          if [ "$STATUS" = "running" ] || [ "$STATUS" = "degraded" ]; then
+            break
+          fi
+          sleep 2
+        done
+
+        if [ "$STATUS" != "running" ] && [ "$STATUS" != "degraded" ]; then
+          echo "::error::systemd on ${{ matrix.os }}:${{ matrix.version }} did not reach a ready state (last status: ${STATUS:-<none>})"
+          podman logs "$CONTAINER" || true
+          podman rm -f "$CONTAINER" || true
+          exit 1
+        fi
+        echo "systemd is up ($STATUS)"
+
+        echo "Checking passwordless sudo for the ansible user..."
+        if ! podman exec "$CONTAINER" su - ansible -c "sudo -n whoami" | grep -qx root; then
+          echo "::error::sudo -n whoami as ansible did not return root on ${{ matrix.os }}:${{ matrix.version }}"
+          podman logs "$CONTAINER" || true
+          podman rm -f "$CONTAINER" || true
+          exit 1
+        fi
+
+        echo "Smoke test passed for $IMAGE"
+        podman rm -f "$CONTAINER"
+
+    - name: Scan image for vulnerabilities
+      continue-on-error: true
+      run: |
+        curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
+        podman save -o /tmp/image.tar ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/molecule-systemd-${{ matrix.os }}:${{ matrix.version }}
+        trivy image --input /tmp/image.tar --severity HIGH,CRITICAL --exit-code 0
+        rm -f /tmp/image.tar
+
     - name: Tag latest
       if: |
         (matrix.os == 'amazonlinux' && matrix.version == '2023') ||
