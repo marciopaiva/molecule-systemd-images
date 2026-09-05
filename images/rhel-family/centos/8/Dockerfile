@@ -24,6 +24,12 @@ RUN rm -f /lib/systemd/system/multi-user.target.wants/* \
     /lib/systemd/system/basic.target.wants/* \
     /lib/systemd/system/anaconda.target.wants/*
 
+# Ensure a local-only PAM profile: installing sudo/systemd can pull in
+# sssd-client as a weak dependency, which silently switches authselect to
+# the "sssd" profile and breaks sudo for local users since no sssd daemon
+# actually runs in this container.
+RUN if command -v authselect >/dev/null 2>&1; then authselect select minimal --force; fi
+
 # Disable requiretty.
 RUN sed -i -e 's/^\(Defaults\s*requiretty\)/#--- \1/'  /etc/sudoers
 
