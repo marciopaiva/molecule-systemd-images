@@ -88,6 +88,14 @@ jobs:
         fi
         echo "systemd is up ($STATUS)"
 
+        echo "--- ALWAYS-ON DEBUG for ${{ matrix.os }}:${{ matrix.version }} ---"
+        podman exec "$CONTAINER" sudo --version 2>&1 | head -1
+        podman exec "$CONTAINER" rpm -q sudo shadow-utils 2>&1
+        podman exec "$CONTAINER" ls -la /etc/shadow 2>&1
+        podman exec "$CONTAINER" stat -c '%a %U:%G' /etc/shadow 2>&1
+        podman exec "$CONTAINER" grep -E '^shadow:' /etc/nsswitch.conf 2>&1
+        echo "--- END ALWAYS-ON DEBUG ---"
+
         echo "Checking passwordless sudo for the ansible user..."
         if ! podman exec "$CONTAINER" su - ansible -c "sudo -n whoami" | grep -qx root; then
           echo "::error::sudo -n whoami as ansible did not return root on ${{ matrix.os }}:${{ matrix.version }}"
