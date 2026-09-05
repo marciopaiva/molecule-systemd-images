@@ -6,7 +6,7 @@ LABEL summary="Molecule Systemd Fedora 39" \
 
 RUN dnf makecache && \
     dnf update -y && \
-    dnf install -y systemd python3 python3-pip sudo bash vim iproute procps-ng && \
+    dnf install -y systemd python3 python3-pip sudo bash vim iproute procps-ng util-linux-user && \
     rm -Rf /usr/share/doc && \
     rm -Rf /usr/share/man && \
     dnf clean all
@@ -22,11 +22,13 @@ RUN rm -f /lib/systemd/system/multi-user.target.wants/* \
     /lib/systemd/system/basic.target.wants/* \
     /lib/systemd/system/anaconda.target.wants/*
 
-# Ensure a local-only PAM profile: installing sudo/systemd can pull in
-# sssd-client as a weak dependency, which silently switches authselect to
-# the "sssd" profile and breaks sudo for local users since no sssd daemon
-# actually runs in this container.
-RUN if command -v authselect >/dev/null 2>&1; then authselect select minimal --force; fi
+# /etc/shadow ships with mode 0000 in these base images; pam_unix's
+# account phase then fails to read it and sudo refuses with "PAM account
+# management error: Authentication service cannot retrieve authentication
+# info". broken_shadow tells pam_unix to ignore that and rely on NSS
+# instead. Confirmed via CI: sudo >= 1.9 hits this, sudo 1.8.x (CentOS 8)
+# does not.
+RUN sed -i -E 's/^(account\s+required\s+pam_unix\.so)$/\1 broken_shadow/' /etc/pam.d/system-auth
 
 # Disable requiretty.
 RUN sed -i -e 's/^\(Defaults\s*requiretty\)/#--- \1/'  /etc/sudoers
