@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [2.5.0] - 2026-09-04
+## [2.5.0] - 2026-09-05
 
 ### Added
 - **New OS Versions**:

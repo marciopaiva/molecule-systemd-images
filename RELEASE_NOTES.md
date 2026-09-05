@@ -1,4 +1,4 @@
-# Release v2.5.0 - Ubuntu 26.04, openSUSE Leap 16.0 and Rocky Linux 10
+# Release v2.5.0 - New versions, CI reliability, and EOL cleanup
 
 ## 🎉 New Version Additions
 
@@ -47,11 +47,11 @@
 
 ### 🔧 **Build System**
 - **Makefile**: Added ubuntu:26.04, opensuse:16.0 and rockylinux:10 targets; updated latest tag pointers
-- **GitHub Actions**: Matrix expanded to build all 42 images; added `fail-fast: false` so one distribution failing does not cancel the rest of a scheduled run
+- **GitHub Actions**: Matrix updated to build all 37 images; added `fail-fast: false` so one distribution failing does not cancel the rest of a scheduled run; a smoke test (systemd boot + passwordless sudo) and a Trivy vulnerability scan now run on every image before it is pushed
 
 ### 📚 **Documentation**
 - Updated Ubuntu, openSUSE and Rocky Linux READMEs with the new versions
-- Main README updated to reflect 42 total images
+- Main README updated to reflect 37 total images
 - All badges and shields updated
 
 ## 🚀 **Usage Examples**
