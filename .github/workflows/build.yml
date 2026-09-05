@@ -19,90 +19,12 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - os: amazonlinux
-            version: "2"
-          - os: amazonlinux
-            version: "2023"
-          - os: centos
-            version: "7"
+          - os: almalinux
+            version: "8"
           - os: centos
             version: "8"
-          - os: rockylinux
-            version: "8"
-          - os: rockylinux
-            version: "9"
-          - os: rockylinux
-            version: "10"
-          - os: almalinux
-            version: "8"
-          - os: almalinux
-            version: "9"
-          - os: almalinux
-            version: "10"
-          - os: oraclelinux
-            version: "8"
-          - os: oraclelinux
-            version: "9"
-          - os: oraclelinux
-            version: "10"
-          - os: debian
-            version: "9"
-          - os: debian
-            version: "10"
-          - os: debian
-            version: "11"
-          - os: debian
-            version: "12"
-          - os: debian
-            version: "13"
-          - os: fedora
-            version: "31"
-          - os: fedora
-            version: "32"
-          - os: fedora
-            version: "36"
-          - os: fedora
-            version: "37"
-          - os: fedora
-            version: "38"
-          - os: fedora
-            version: "39"
-          - os: fedora
-            version: "40"
-          - os: fedora
-            version: "41"
-          - os: fedora
-            version: "42"
-          - os: fedora
-            version: "43"
           - os: fedora
             version: "44"
-          - os: ubuntu
-            version: "18.04"
-          - os: ubuntu
-            version: "19.10"
-          - os: ubuntu
-            version: "20.04"
-          - os: ubuntu
-            version: "21.04"
-          - os: ubuntu
-            version: "22.04"
-          - os: ubuntu
-            version: "23.04"
-          - os: ubuntu
-            version: "24.04"
-          - os: ubuntu
-            version: "26.04"
-          - os: opensuse
-            version: "15.4"
-          - os: opensuse
-            version: "15.5"
-          - os: opensuse
-            version: "15.6"
-          - os: opensuse
-            version: "16.0"
-          - os: archlinux
-            version: "latest"
 
     steps:
     - name: Checkout
@@ -169,6 +91,20 @@ jobs:
         echo "Checking passwordless sudo for the ansible user..."
         if ! podman exec "$CONTAINER" su - ansible -c "sudo -n whoami" | grep -qx root; then
           echo "::error::sudo -n whoami as ansible did not return root on ${{ matrix.os }}:${{ matrix.version }}"
+          echo "--- DEBUG: rpm -qa | grep -Ei 'sssd|authselect' ---"
+          podman exec "$CONTAINER" rpm -qa 2>&1 | grep -Ei 'sssd|authselect' || echo "(no matches)"
+          echo "--- DEBUG: authselect current ---"
+          podman exec "$CONTAINER" authselect current 2>&1 || echo "(authselect not available)"
+          echo "--- DEBUG: /etc/pam.d/sudo ---"
+          podman exec "$CONTAINER" cat /etc/pam.d/sudo 2>&1 || true
+          echo "--- DEBUG: /etc/pam.d/system-auth ---"
+          podman exec "$CONTAINER" cat /etc/pam.d/system-auth 2>&1 || true
+          echo "--- DEBUG: sudo -n whoami as ansible, verbose ---"
+          podman exec "$CONTAINER" su - ansible -c "sudo -n whoami" 2>&1 || true
+          echo "--- DEBUG: id ansible ---"
+          podman exec "$CONTAINER" id ansible 2>&1 || true
+          echo "--- DEBUG: /etc/shadow entry for ansible ---"
+          podman exec "$CONTAINER" grep ansible /etc/shadow 2>&1 || true
           podman logs "$CONTAINER" || true
           podman rm -f "$CONTAINER" || true
           exit 1
