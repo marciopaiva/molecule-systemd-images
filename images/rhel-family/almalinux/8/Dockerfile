@@ -26,7 +26,7 @@ RUN rm -f /lib/systemd/system/multi-user.target.wants/* \
 # sssd-client as a weak dependency, which silently switches authselect to
 # the "sssd" profile and breaks sudo for local users since no sssd daemon
 # actually runs in this container.
-RUN if command -v authselect >/dev/null 2>&1; then authselect select minimal --force; fi
+RUN if command -v authselect >/dev/null 2>&1; then authselect select minimal --force || true; fi
 
 # Disable requiretty.
 RUN sed -i -e 's/^\(Defaults\s*requiretty\)/#--- \1/'  /etc/sudoers

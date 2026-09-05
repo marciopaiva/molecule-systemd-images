@@ -91,10 +91,15 @@ jobs:
         echo "Checking passwordless sudo for the ansible user..."
         if ! podman exec "$CONTAINER" su - ansible -c "sudo -n whoami" | grep -qx root; then
           echo "::error::sudo -n whoami as ansible did not return root on ${{ matrix.os }}:${{ matrix.version }}"
-          echo "--- DEBUG: rpm -qa | grep -Ei 'sssd|authselect' ---"
-          podman exec "$CONTAINER" rpm -qa 2>&1 | grep -Ei 'sssd|authselect' || echo "(no matches)"
-          echo "--- DEBUG: authselect current ---"
-          podman exec "$CONTAINER" authselect current 2>&1 || echo "(authselect not available)"
+          echo "--- DEBUG: /etc/nsswitch.conf ---"
+          podman exec "$CONTAINER" cat /etc/nsswitch.conf 2>&1 || true
+          echo "--- DEBUG: getent passwd/shadow ansible ---"
+          podman exec "$CONTAINER" getent passwd ansible 2>&1 || echo "getent passwd failed: $?"
+          podman exec "$CONTAINER" getent shadow ansible 2>&1 || echo "getent shadow failed: $?"
+          echo "--- DEBUG: ls -la /etc/shadow /etc/passwd ---"
+          podman exec "$CONTAINER" ls -la /etc/shadow /etc/passwd 2>&1 || true
+          echo "--- DEBUG: strace sudo (account phase) ---"
+          podman exec "$CONTAINER" bash -c "command -v strace >/dev/null 2>&1 && strace -f -e trace=network,openat -o /tmp/strace.out su - ansible -c 'sudo -n whoami'; cat /tmp/strace.out 2>/dev/null | tail -60" 2>&1 || echo "(strace not available)"
           echo "--- DEBUG: /etc/pam.d/sudo ---"
           podman exec "$CONTAINER" cat /etc/pam.d/sudo 2>&1 || true
           echo "--- DEBUG: /etc/pam.d/system-auth ---"
