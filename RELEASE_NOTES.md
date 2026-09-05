@@ -16,11 +16,11 @@
 
 ## 📦 **Updated Image Count**
 
-**42 container images** across **9 distributions** (was 39):
+**40 container images** across **9 distributions** (was 39):
 
-### **RHEL Family (15 images)**
-- **Amazon Linux**: 2, 2023 (latest)
-- **CentOS**: 7, 8 (EOL - legacy support)
+### **RHEL Family (11 images)**
+- **Amazon Linux**: 2023 (latest); 2 removed, see Removed below
+- **CentOS**: 8 (EOL - legacy support); 7 removed, see Removed below
 - **Rocky Linux**: 8, 9, 10 (latest) ✨ **NEW VERSION**
 - **AlmaLinux**: 8, 9, 10 (latest)
 - **Oracle Linux**: 8, 9, 10 (latest)
@@ -78,7 +78,6 @@ platforms:
     command: /usr/lib/systemd/systemd
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
-    cgroupns_mode: host
 ```
 
 ### Using Rocky Linux 10
@@ -98,7 +97,23 @@ platforms:
 - Corrected a sudoers `%wheel` rule corruption bug in the Arch Linux image: the uncomment sed was matching both template lines in the default sudoers file, and the following sed then produced invalid syntax, breaking sudo for every user
 - `archlinux-keyring` is now refreshed before `pacman -Syu` to avoid intermittent PGP signature failures on rebuilds
 - The sudoers file is now validated with `visudo -c` at build time
-- GitHub Actions matrix now uses `fail-fast: false` so an Arch Linux build failure does not cancel the other 41 image builds in the same run
+- GitHub Actions matrix now uses `fail-fast: false` so an Arch Linux build failure does not cancel the other builds in the same run
+
+## 🐛 **Bug Fix (sudo across most dnf-based images)**
+
+A new CI smoke test (boot the image, wait for systemd, check passwordless sudo for the `ansible` user) caught a real, years-old defect: sudo failed on AlmaLinux, Rocky Linux, Oracle Linux, Amazon Linux 2023 and Fedora 36+ with "PAM account management error: Authentication service cannot retrieve authentication info", even though systemd itself booted fine.
+
+- **Cause**: `/etc/shadow` ships with mode `0000` on these images, and sudo >= 1.9 needs pam_unix's account phase to read it. CentOS 8's older sudo 1.8.29 doesn't hit this, which is why it was the only RHEL family image still passing
+- **Fix**: added `broken_shadow` to the `pam_unix.so` account line in `/etc/pam.d/system-auth`, which tells pam_unix to fall back to NSS instead of failing
+- **Also found**: `/usr/bin/su` is missing from the default package set on Fedora 44 and on AlmaLinux/Rocky Linux/Oracle Linux 10 (moved into `util-linux-user`), causing a second, unrelated smoke test failure; added `util-linux-user` to every affected Dockerfile
+
+## 🗑️ **Removed**
+
+### CentOS 7
+systemd never reaches a ready state in this image anymore; the smoke test's `systemctl is-system-running` check stays empty indefinitely no matter how long it waits. Kept in a permanently broken state serves nobody, so the image was removed. Use CentOS 8 or migrate to Rocky Linux / AlmaLinux.
+
+### Amazon Linux 2
+Reached End of Life on 2026-06-30 and has the same systemd startup failure as CentOS 7. Use Amazon Linux 2023.
 
 ## ⚙️ **Technical Notes**
 

@@ -15,7 +15,8 @@ Container images for testing Ansible roles with Molecule using CentOS distributi
 ## Available Tags
 
 - `8` - CentOS 8 (EOL)
-- `7` - CentOS 7 (EOL)
+
+CentOS 7 reached End of Life and systemd never reliably initializes in that image anymore, so it was removed from this project.
 
 ## Usage
 

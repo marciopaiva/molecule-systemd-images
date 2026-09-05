@@ -7,8 +7,8 @@
 # License: MIT
 #
 # Supported distributions:
-#   - Amazon Linux (2, 2023)
-#   - CentOS (7, 8) - Legacy
+#   - Amazon Linux (2023)
+#   - CentOS (8) - Legacy
 #   - Rocky Linux (8, 9, 10)
 #   - AlmaLinux (8, 9, 10)
 #   - Oracle Linux (8, 9, 10)
@@ -51,13 +51,11 @@ sizes:
 	@$(CONTAINER_ENGINE) images --format "table {{.Repository}}:{{.Tag}}\t{{.Size}}" $(REGISTRY)/$(NAMESPACE)/molecule-systemd-*
 
 amazonlinux:
-	cd ./images/rhel-family/amazonlinux/2 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-amazonlinux:2 .
 	cd ./images/rhel-family/amazonlinux/2023 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-amazonlinux:2023 .
 	$(CONTAINER_ENGINE) tag $(REGISTRY)/$(NAMESPACE)/molecule-systemd-amazonlinux:2023 $(REGISTRY)/$(NAMESPACE)/molecule-systemd-amazonlinux:latest
 
 centos:
 	cd ./images/rhel-family/centos/8 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-centos:8 .
-	cd ./images/rhel-family/centos/7 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-centos:7 .
 
 rockylinux:
 	cd ./images/rhel-family/rockylinux/8 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-rockylinux:8 .

@@ -7,7 +7,7 @@
 
 ![Docker Pulls](https://img.shields.io/docker/pulls/mpaivabarbosa/molecule-systemd-ubuntu?logo=docker&label=docker%20pulls)
 ![Docker Image Size](https://img.shields.io/docker/image-size/mpaivabarbosa/molecule-systemd-ubuntu/latest?logo=docker&label=image%20size)
-![Supported Platforms](https://img.shields.io/badge/platforms-42%20images-blue?logo=docker)
+![Supported Platforms](https://img.shields.io/badge/platforms-40%20images-blue?logo=docker)
 ![Distributions](https://img.shields.io/badge/distributions-9%20families-green?logo=linux)
 
 ![Ansible](https://img.shields.io/badge/ansible-molecule%20ready-red?logo=ansible)
@@ -75,16 +75,15 @@ Molecule encourages an approach that results in consistently developed roles tha
 
 ## Supported Images
 
-**42 container images** across **9 distributions**:
+**40 container images** across **9 distributions**:
 
 > All images are automatically built, smoke tested and scanned for vulnerabilities via GitHub Actions before being pushed.
 
   * **[Amazon Linux](https://hub.docker.com/r/mpaivabarbosa/molecule-systemd-amazonlinux)**
     * `latest`, `2023`
-    * `2` (EOL since 2026-06-30)
 
   * **[CentOS](https://hub.docker.com/r/mpaivabarbosa/molecule-systemd-centos)** (Legacy)
-    * `8`, `7`
+    * `8`
 
   * **[Rocky Linux](https://hub.docker.com/r/mpaivabarbosa/molecule-systemd-rockylinux)**
     * `latest`, `10`

@@ -9,8 +9,8 @@ All notable changes to this project will be documented in this file.
   - Ubuntu 26.04 LTS Resolute (new LTS, support until 2031)
   - openSUSE Leap 16.0 (new major release, support until 2031)
   - Rocky Linux 10 (matches AlmaLinux and Oracle Linux 10 already supported)
-- **Image Count Increase**:
-  - Total images: 42 (was 39)
+- **Image Count**:
+  - 42 (was 39) after the new versions above, then 40 after removing CentOS 7 and Amazon Linux 2 (see Removed)
 
 ### Changed
 - **Latest Tags Updated**:
@@ -35,9 +35,12 @@ All notable changes to this project will be documented in this file.
 - **examples/molecule.yml**: added the missing `examples/requirements.yml` it has referenced since it was written
 - **molecule.yml examples**: removed `cgroupns_mode`, an invalid platform key for the containers driver (`additionalProperties: false` in its schema); copying these examples as documented would fail schema validation
 - **README.md**: fixed a troubleshooting example that misused `dockerfile:` with inline Dockerfile content instead of a path to a `Dockerfile.j2` template
+- **sudo/PAM on dnf-based images**: `/etc/shadow` ships with mode `0000` on AlmaLinux, Rocky Linux, Oracle Linux, Amazon Linux 2023 and Fedora 36+, and sudo >= 1.9 (unlike CentOS 8's 1.8.29) needs pam_unix's account phase to read it, failing with "PAM account management error: Authentication service cannot retrieve authentication info" otherwise. This was a real, years-old defect only caught once the new CI smoke test started actually checking sudo instead of just the build. Fixed by adding `broken_shadow` to the `pam_unix.so` account line in `/etc/pam.d/system-auth`. An earlier attempt in this same release cycle used `authselect select minimal --force` instead; that was wrong (authselect isn't even installed on most of these images, and `--force` outright breaks the build on Fedora) and was replaced with this fix before ever reaching a tag
+- **Fedora and RHEL 10 family images**: `/usr/bin/su` is missing from the default package set on Fedora 44 and AlmaLinux/Rocky Linux/Oracle Linux 10 (moved into `util-linux-user`), which made the smoke test fail with "su not found" independent of the PAM issue above. Added `util-linux-user` to every Fedora and RHEL 10 family Dockerfile
 
-### Changed
-- **Documentation**: flagged Amazon Linux 2 as EOL (since 2026-06-30) in its family README and in the main README, matching the existing CentOS EOL notice
+### Removed
+- **CentOS 7**: systemd never reaches a ready state in this image anymore (the smoke test's `systemctl is-system-running` stays empty indefinitely); removed rather than kept in a permanently broken state
+- **Amazon Linux 2**: reached EOL on 2026-06-30 and has the same systemd startup failure as CentOS 7; removed
 
 ### Technical Details
 - Rocky Linux 10's Dockerfile pulls `rockylinux/rockylinux:10`, not `rockylinux:10`. The official `docker.io/library/rockylinux` image does not publish a `10` tag, only Rocky's own Docker Hub namespace does

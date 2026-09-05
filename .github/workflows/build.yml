@@ -20,11 +20,7 @@ jobs:
       matrix:
         include:
           - os: amazonlinux
-            version: "2"
-          - os: amazonlinux
             version: "2023"
-          - os: centos
-            version: "7"
           - os: centos
             version: "8"
           - os: rockylinux

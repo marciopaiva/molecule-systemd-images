@@ -20,7 +20,7 @@ ansible-galaxy collection install containers.podman community.docker ansible.pos
 
 ```bash
 # Build latest versions
-make amazonlinux    # Amazon Linux 2, 2023
+make amazonlinux    # Amazon Linux 2023
 make rockylinux     # Rocky Linux 8, 9, 10
 make almalinux      # AlmaLinux 8, 9, 10
 make oraclelinux    # Oracle Linux 8, 9, 10
