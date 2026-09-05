@@ -98,8 +98,15 @@ jobs:
           podman exec "$CONTAINER" getent shadow ansible 2>&1 || echo "getent shadow failed: $?"
           echo "--- DEBUG: ls -la /etc/shadow /etc/passwd ---"
           podman exec "$CONTAINER" ls -la /etc/shadow /etc/passwd 2>&1 || true
-          echo "--- DEBUG: strace sudo (account phase) ---"
-          podman exec "$CONTAINER" bash -c "command -v strace >/dev/null 2>&1 && strace -f -e trace=network,openat -o /tmp/strace.out su - ansible -c 'sudo -n whoami'; cat /tmp/strace.out 2>/dev/null | tail -60" 2>&1 || echo "(strace not available)"
+          echo "--- DEBUG: NoNewPrivs / caps as root ---"
+          podman exec "$CONTAINER" grep -E "NoNewPrivs|CapEff|CapBnd" /proc/self/status 2>&1 || true
+          echo "--- DEBUG: NoNewPrivs / caps as ansible (su -) ---"
+          podman exec "$CONTAINER" su - ansible -c "grep -E 'NoNewPrivs|CapEff|CapBnd' /proc/self/status" 2>&1 || true
+          echo "--- DEBUG: sudo binary perms ---"
+          podman exec "$CONTAINER" ls -la /usr/bin/sudo 2>&1 || true
+          podman exec "$CONTAINER" getcap /usr/bin/sudo 2>&1 || echo "(getcap not available)"
+          echo "--- DEBUG: sudo real/effective uid via su -c whoami vs id ---"
+          podman exec "$CONTAINER" su - ansible -c "id; sudo -n id" 2>&1 || true
           echo "--- DEBUG: /etc/pam.d/sudo ---"
           podman exec "$CONTAINER" cat /etc/pam.d/sudo 2>&1 || true
           echo "--- DEBUG: /etc/pam.d/system-auth ---"
