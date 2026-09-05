@@ -25,6 +25,12 @@ RUN rm -f /lib/systemd/system/multi-user.target.wants/* \
 # Disable requiretty.
 RUN sed -i -e 's/^\(Defaults\s*requiretty\)/#--- \1/'  /etc/sudoers
 
+# /etc/shadow ships with mode 0000 in this base image; pam_unix's account
+# phase then fails to read it and sudo refuses with "PAM account management
+# error: Authentication service cannot retrieve authentication info".
+# broken_shadow tells pam_unix to ignore that and rely on NSS instead.
+RUN sed -i -E 's/^(account\s+required\s+pam_unix\.so)$/\1 broken_shadow/' /etc/pam.d/system-auth
+
 # Create `ansible` user with sudo permissions
 ENV ANSIBLE_USER=ansible SUDO_GROUP=wheel
 RUN set -xe && \

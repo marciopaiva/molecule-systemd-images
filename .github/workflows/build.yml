@@ -94,6 +94,7 @@ jobs:
         podman exec "$CONTAINER" ls -la /etc/shadow 2>&1
         podman exec "$CONTAINER" stat -c '%a %U:%G' /etc/shadow 2>&1
         podman exec "$CONTAINER" grep -E '^shadow:' /etc/nsswitch.conf 2>&1
+        podman exec "$CONTAINER" grep -E '^account' /etc/pam.d/system-auth 2>&1
         echo "--- END ALWAYS-ON DEBUG ---"
 
         echo "Checking passwordless sudo for the ansible user..."
