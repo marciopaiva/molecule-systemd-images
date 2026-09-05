@@ -6,7 +6,7 @@ LABEL summary="Molecule Systemd Oracle Linux 10" \
 
 RUN dnf makecache && \
     dnf update -y && \
-    dnf install -y systemd python3 python3-pip sudo bash vim iproute procps-ng && \
+    dnf install -y systemd python3 python3-pip sudo bash vim iproute procps-ng util-linux-user && \
     rm -Rf /usr/share/doc && \
     rm -Rf /usr/share/man && \
     dnf clean all
