@@ -14,7 +14,9 @@
 ![Podman](https://img.shields.io/badge/podman-supported-purple?logo=podman)
 ![Systemd](https://img.shields.io/badge/systemd-enabled-orange?logo=systemd)
 
-Base container images for testing using Ansible Molecule test framework with Podman support.
+Base container images for testing using the Ansible Molecule test framework, with Podman support.
+
+⚠️ **These images are built for testing roles and playbooks with Ansible Molecule in isolated environments, not for production use.** The configuration is optimized for Molecule testing scenarios and may not be suitable for secure, performant production deployments.
 
 ---
 
@@ -24,7 +26,7 @@ Base container images for testing using Ansible Molecule test framework with Pod
 - [About Ansible Molecule](#about-ansible-molecule)
 - [Supported Images](#supported-images)
 - [Distribution Comparison](#distribution-comparison)
-- [How to Use with Podman](#how-to-use-with-podman)
+- [Full Example Configuration](#full-example-configuration)
 - [Requirements](#requirements)
 - [Building Images Locally](#building-images-locally)
 - [Performance Tips](#performance-tips)
@@ -41,24 +43,33 @@ Base container images for testing using Ansible Molecule test framework with Pod
 # Install requirements
 pip install molecule molecule-plugins[podman]
 ansible-galaxy collection install containers.podman community.docker ansible.posix
+```
 
-# Use in your molecule.yml
+```yaml
+# molecule/default/molecule.yml
+driver:
+  name: containers
 platforms:
   - name: ubuntu-test
-    image: mpaivabarbosa/molecule-systemd-ubuntu:24.04
+    image: mpaivabarbosa/molecule-systemd-ubuntu:26.04
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
+provisioner:
+  name: ansible
+verifier:
+  name: ansible
+```
 
-# Run tests
+```bash
 molecule test
 ```
 
 ## About Ansible Molecule
 
-Molecule project is designed to aid in the development and testing of Ansible roles.
+Molecule is designed to aid in the development and testing of Ansible roles.
 
-Molecule provides support for testing with multiple instances, operating systems and distributions, virtualization providers, test frameworks and testing scenarios.
+It provides support for testing with multiple instances, operating systems and distributions, virtualization providers, test frameworks and testing scenarios.
 
 Molecule encourages an approach that results in consistently developed roles that are well-written, easily understood and maintained.
 
@@ -66,12 +77,12 @@ Molecule encourages an approach that results in consistently developed roles tha
 
 **42 container images** across **9 distributions**:
 
-> All images are automatically built and tested via GitHub Actions, ensuring reliability and consistency.
+> All images are automatically built, smoke tested and scanned for vulnerabilities via GitHub Actions before being pushed.
 
   * **[Amazon Linux](https://hub.docker.com/r/mpaivabarbosa/molecule-systemd-amazonlinux)**
     * `latest`, `2023`
     * `2` (EOL since 2026-06-30)
-  
+
   * **[CentOS](https://hub.docker.com/r/mpaivabarbosa/molecule-systemd-centos)** (Legacy)
     * `8`, `7`
 
@@ -128,11 +139,13 @@ Molecule encourages an approach that results in consistently developed roles tha
 - 🚀 **Bleeding Edge:** Arch Linux, Fedora
 - 📦 **Legacy Support:** CentOS (EOL)
 
-## How to Use with Podman
+## Full Example Configuration
 
-To use these images with Podman, edit the `platforms` section of file `molecule/default/molecule.yml` as follows:
+For a starter `molecule.yml` covering every RHEL, Debian and Fedora family with `dependency`, `provisioner`, `verifier` and a full `test_sequence` already wired up, copy [`examples/molecule.yml`](examples/molecule.yml) and [`examples/requirements.yml`](examples/requirements.yml) into your role, see [`examples/README.md`](examples/README.md).
 
-```yml
+A minimal excerpt, showing a few distributions at once:
+
+```yaml
 ---
 dependency:
   name: galaxy
@@ -141,68 +154,32 @@ driver:
   name: containers
 
 platforms:
-- name: amazonlinux-2023
-  hostname: amazonlinux
-  image: mpaivabarbosa/molecule-systemd-amazonlinux:2023
-  volumes:
-    - /sys/fs/cgroup:/sys/fs/cgroup:ro
-  privileged: true
-  pre_build_image: true
-  override_command: false
+  - name: rockylinux-10
+    hostname: rockylinux
+    image: mpaivabarbosa/molecule-systemd-rockylinux:10
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+    override_command: false
 
-- name: rockylinux-9
-  hostname: rockylinux
-  image: mpaivabarbosa/molecule-systemd-rockylinux:9
-  volumes:
-    - /sys/fs/cgroup:/sys/fs/cgroup:ro
-  privileged: true
-  pre_build_image: true
-  override_command: false
+  - name: debian-13
+    hostname: debian
+    image: mpaivabarbosa/molecule-systemd-debian:13
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+    override_command: false
 
-- name: almalinux-9
-  hostname: almalinux
-  image: mpaivabarbosa/molecule-systemd-almalinux:9
-  volumes:
-    - /sys/fs/cgroup:/sys/fs/cgroup:ro
-  privileged: true
-  pre_build_image: true
-  override_command: false
-
-- name: debian-13
-  hostname: debian
-  image: mpaivabarbosa/molecule-systemd-debian:13
-  volumes:
-    - /sys/fs/cgroup:/sys/fs/cgroup:ro
-  privileged: true
-  pre_build_image: true
-  override_command: false
-
-- name: fedora-44
-  hostname: fedora
-  image: mpaivabarbosa/molecule-systemd-fedora:44
-  volumes:
-    - /sys/fs/cgroup:/sys/fs/cgroup:ro
-  privileged: true
-  pre_build_image: true
-  override_command: false
-
-- name: opensuse-leap-15
-  hostname: opensuse
-  image: mpaivabarbosa/molecule-systemd-opensuse:15.6
-  volumes:
-    - /sys/fs/cgroup:/sys/fs/cgroup:rw
-  privileged: true
-  pre_build_image: true
-  override_command: false
-
-- name: ubuntu-24
-  hostname: ubuntu
-  image: mpaivabarbosa/molecule-systemd-ubuntu:24.04
-  volumes:
-    - /sys/fs/cgroup:/sys/fs/cgroup:ro
-  privileged: true
-  pre_build_image: true
-  override_command: false
+  - name: opensuse-leap-16
+    hostname: opensuse
+    image: mpaivabarbosa/molecule-systemd-opensuse:16.0
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    privileged: true
+    pre_build_image: true
+    override_command: false
 
 provisioner:
   name: ansible
@@ -216,8 +193,8 @@ verifier:
 
 ## Requirements
 
-- Ansible Molecule (CalVer releases, e.g. 26.x) with molecule-plugins[podman]
-- containers.podman, community.docker and ansible.posix collections
+- Ansible Molecule (CalVer releases, e.g. 26.x) with `molecule-plugins[podman]`
+- `containers.podman`, `community.docker` and `ansible.posix` collections
 - Podman >= 4.0
 
 Install requirements:
@@ -243,12 +220,12 @@ make amazonlinux    # Amazon Linux images
 make centos         # CentOS images
 make rockylinux     # Rocky Linux images
 make almalinux      # AlmaLinux images
+make oraclelinux    # Oracle Linux images
 make debian         # Debian images
 make fedora         # Fedora images
 make ubuntu         # Ubuntu images
 make opensuse       # openSUSE Leap images
-
-
+make archlinux      # Arch Linux image
 
 # Test specific image
 ./scripts/test-image.sh ubuntu 24.04
@@ -266,8 +243,6 @@ make clean          # Clean up
 make build CONTAINER_ENGINE=docker
 ./scripts/build-all.sh CONTAINER_ENGINE=docker
 
-
-
 # Show all available targets
 make help
 ```
@@ -280,7 +255,7 @@ make help
 ```yaml
 platforms:
   - name: ubuntu-test
-    image: mpaivabarbosa/molecule-systemd-ubuntu:24.04
+    image: mpaivabarbosa/molecule-systemd-ubuntu:26.04
     pre_build_image: true  # Don't rebuild, use from registry
 ```
 
@@ -304,7 +279,7 @@ molecule test --parallel
 # Test only on changed platforms
 platforms:
   - name: ubuntu-test
-    image: mpaivabarbosa/molecule-systemd-ubuntu:24.04
+    image: mpaivabarbosa/molecule-systemd-ubuntu:26.04
 ```
 
 ### Local Development
@@ -341,7 +316,7 @@ provisioner:
 **Problem: "Container image not found"**
 ```bash
 # Solution: Check image name and pull manually
-podman pull docker.io/mpaivabarbosa/molecule-systemd-ubuntu:24.04
+podman pull docker.io/mpaivabarbosa/molecule-systemd-ubuntu:26.04
 ```
 
 **Problem: Slow container startup**
@@ -384,7 +359,7 @@ molecule test -- -vvv
 - 📖 [Full Documentation](docs/)
 - 🐛 [Report Issues](https://github.com/marciopaiva/molecule-systemd-images/issues)
 - 💬 [Discussions](https://github.com/marciopaiva/molecule-systemd-images/discussions)
-- 📚 [Molecule Docs](https://ansible.readthedocs.io/projects/molecule/)
+- 📚 [Molecule Docs](https://docs.ansible.com/projects/molecule/)
 - 🔧 [Troubleshooting Guide](docs/TROUBLESHOOTING.md)
 
 ## Migration from Docker
@@ -392,9 +367,9 @@ molecule test -- -vvv
 If migrating from Docker to Podman:
 
 1. Install Podman: `sudo apt install podman` (Ubuntu/Debian) or `sudo dnf install podman` (Fedora/RHEL)
-2. Update molecule.yml driver from `docker` to `containers`
+2. Update `molecule.yml` driver from `docker` to `containers`
 3. Install required collections: `ansible-galaxy collection install containers.podman community.docker ansible.posix`
-4. Update image URLs to use Docker Hub registry
+4. Update image URLs to use the Docker Hub registry
 
 ## Features
 
@@ -404,35 +379,7 @@ If migrating from Docker to Podman:
 - **Multi-architecture** - Built for amd64 architecture
 - **Minimal footprint** - Optimized image sizes with essential packages only
 - **EOL support** - Includes End-of-Life distributions with corrected repositories
-
-## Important Note
-
-⚠️ **These images are designed for testing roles and playbooks using Ansible Molecule in isolated environments — not for production use.** The settings and configuration may not be suitable for secure and performant production environments.
-
-## Quick Start
-
-1. **Install requirements:**
-   ```bash
-   pip install molecule molecule-plugins[podman]
-   ansible-galaxy collection install containers.podman community.docker ansible.posix
-   ```
-
-2. **Use in molecule.yml:**
-   ```yaml
-   driver:
-     name: containers
-   platforms:
-   - name: ubuntu-test
-     image: mpaivabarbosa/molecule-systemd-ubuntu:24.04
-     privileged: true
-     volumes:
-       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-   ```
-
-3. **Run tests:**
-   ```bash
-   molecule test
-   ```
+- **CI verified** - Every build is smoke tested (systemd boot, sudo) and scanned for vulnerabilities before being pushed
 
 ## Project Structure
 
@@ -443,16 +390,19 @@ molecule-systemd-images/
 │   │   ├── amazonlinux/
 │   │   ├── centos/
 │   │   ├── rockylinux/
-│   │   └── almalinux/
+│   │   ├── almalinux/
+│   │   └── oraclelinux/
 │   ├── debian-family/   # Debian-based distributions
 │   │   ├── debian/
 │   │   └── ubuntu/
-│   └── fedora/          # Fedora releases
+│   ├── fedora/          # Fedora releases
+│   ├── opensuse/        # openSUSE Leap releases
+│   └── archlinux/       # Arch Linux (rolling release)
 ├── templates/           # Dockerfile templates
 ├── scripts/             # Build and test scripts
-├── docs/               # Documentation
-├── tests/              # Test suites
-└── examples/           # Usage examples
+├── docs/                # Documentation
+├── tests/               # Test suites
+└── examples/            # Usage examples
 ```
 
 ## Contributing
@@ -468,4 +418,4 @@ See [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) for detailed guidelines.
 
 ## License
 
-MIT License - see LICENSE file for details.
+MIT License, see [LICENSE](LICENSE) file for details.
