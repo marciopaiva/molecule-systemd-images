@@ -10,7 +10,7 @@ All notable changes to this project will be documented in this file.
   - openSUSE Leap 16.0 (new major release, support until 2031)
   - Rocky Linux 10 (matches AlmaLinux and Oracle Linux 10 already supported)
 - **Image Count**:
-  - 42 (was 39) after the new versions above, then 40 after removing CentOS 7 and Amazon Linux 2 (see Removed)
+  - 42 (was 39) after the new versions above, then 37 after removing CentOS 7, Amazon Linux 2, and Debian 9/10/11 (see Removed)
 
 ### Changed
 - **Latest Tags Updated**:
@@ -41,6 +41,7 @@ All notable changes to this project will be documented in this file.
 ### Removed
 - **CentOS 7**: systemd never reaches a ready state in this image anymore (the smoke test's `systemctl is-system-running` stays empty indefinitely); removed rather than kept in a permanently broken state
 - **Amazon Linux 2**: reached EOL on 2026-06-30 and has the same systemd startup failure as CentOS 7; removed
+- **Debian 9, 10 and 11**: Debian 11's LTS ended 2026-08-31, days before this build started failing with `404 Not Found` on `debian-security` for packages the freshly fetched index still referenced (`libcap2`, `sudo`, `vim`, `python3-pkg-resources`); reproduced identically across three separate CI runs hours apart, so not transient mirror flakiness. Debian 9 and 10 (both EOL long before 11) were removed at the same time rather than waiting for them to fail the same way
 
 ### Technical Details
 - Rocky Linux 10's Dockerfile pulls `rockylinux/rockylinux:10`, not `rockylinux:10`. The official `docker.io/library/rockylinux` image does not publish a `10` tag, only Rocky's own Docker Hub namespace does

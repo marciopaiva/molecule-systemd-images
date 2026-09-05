@@ -14,11 +14,8 @@ Container images for testing Ansible roles with Molecule using Debian distributi
 **Current Releases:**
 - `latest`, `13` - Debian 13 Trixie (recommended)
 - `12` - Debian 12 Bookworm
-- `11` - Debian 11 Bullseye
-- `10` - Debian 10 Buster
 
-**Legacy/EOL Releases:**
-- `9` - Debian 9 Stretch (EOL)
+Debian 9, 10 and 11 reached End of Life (Debian 11's LTS ended 2026-08-31) and were removed from this project.
 
 ## Usage
 

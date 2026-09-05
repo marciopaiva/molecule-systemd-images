@@ -76,9 +76,6 @@ oraclelinux:
 	$(CONTAINER_ENGINE) tag $(REGISTRY)/$(NAMESPACE)/molecule-systemd-oraclelinux:10 $(REGISTRY)/$(NAMESPACE)/molecule-systemd-oraclelinux:latest
 
 debian:
-	cd ./images/debian-family/debian/9 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-debian:9 .
-	cd ./images/debian-family/debian/10 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-debian:10 .
-	cd ./images/debian-family/debian/11 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-debian:11 .
 	cd ./images/debian-family/debian/12 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-debian:12 .
 	cd ./images/debian-family/debian/13 && $(CONTAINER_ENGINE) build -t $(REGISTRY)/$(NAMESPACE)/molecule-systemd-debian:13 .
 	$(CONTAINER_ENGINE) tag $(REGISTRY)/$(NAMESPACE)/molecule-systemd-debian:13 $(REGISTRY)/$(NAMESPACE)/molecule-systemd-debian:latest

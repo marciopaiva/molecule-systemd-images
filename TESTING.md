@@ -24,7 +24,7 @@ make amazonlinux    # Amazon Linux 2023
 make rockylinux     # Rocky Linux 8, 9, 10
 make almalinux      # AlmaLinux 8, 9, 10
 make oraclelinux    # Oracle Linux 8, 9, 10
-make debian         # Debian 9-13
+make debian         # Debian 12, 13
 make fedora         # Fedora 31, 32, 36-44
 make ubuntu         # Ubuntu 18.04-24.04, 26.04
 make opensuse       # openSUSE Leap 15.4-15.6, 16.0

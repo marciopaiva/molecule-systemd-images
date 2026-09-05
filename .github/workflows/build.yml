@@ -42,12 +42,6 @@ jobs:
           - os: oraclelinux
             version: "10"
           - os: debian
-            version: "9"
-          - os: debian
-            version: "10"
-          - os: debian
-            version: "11"
-          - os: debian
             version: "12"
           - os: debian
             version: "13"

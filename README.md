@@ -7,7 +7,7 @@
 
 ![Docker Pulls](https://img.shields.io/docker/pulls/mpaivabarbosa/molecule-systemd-ubuntu?logo=docker&label=docker%20pulls)
 ![Docker Image Size](https://img.shields.io/docker/image-size/mpaivabarbosa/molecule-systemd-ubuntu/latest?logo=docker&label=image%20size)
-![Supported Platforms](https://img.shields.io/badge/platforms-40%20images-blue?logo=docker)
+![Supported Platforms](https://img.shields.io/badge/platforms-37%20images-blue?logo=docker)
 ![Distributions](https://img.shields.io/badge/distributions-9%20families-green?logo=linux)
 
 ![Ansible](https://img.shields.io/badge/ansible-molecule%20ready-red?logo=ansible)
@@ -75,7 +75,7 @@ Molecule encourages an approach that results in consistently developed roles tha
 
 ## Supported Images
 
-**40 container images** across **9 distributions**:
+**37 container images** across **9 distributions**:
 
 > All images are automatically built, smoke tested and scanned for vulnerabilities via GitHub Actions before being pushed.
 
@@ -99,7 +99,7 @@ Molecule encourages an approach that results in consistently developed roles tha
 
   * **[Debian](https://hub.docker.com/r/mpaivabarbosa/molecule-systemd-debian)**
     * `latest`, `13`
-    * `12`, `11`, `10`, `9`
+    * `12`
 
   * **[Fedora](https://hub.docker.com/r/mpaivabarbosa/molecule-systemd-fedora)**
     * `latest`, `44`

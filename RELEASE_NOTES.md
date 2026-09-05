@@ -16,7 +16,7 @@
 
 ## 📦 **Updated Image Count**
 
-**40 container images** across **9 distributions** (was 39):
+**37 container images** across **9 distributions** (was 39):
 
 ### **RHEL Family (11 images)**
 - **Amazon Linux**: 2023 (latest); 2 removed, see Removed below
@@ -25,8 +25,8 @@
 - **AlmaLinux**: 8, 9, 10 (latest)
 - **Oracle Linux**: 8, 9, 10 (latest)
 
-### **Debian Family (13 images)**
-- **Debian**: 9, 10, 11, 12, 13 (latest)
+### **Debian Family (10 images)**
+- **Debian**: 12, 13 (latest); 9, 10, 11 removed, see Removed below
 - **Ubuntu**: 18.04, 19.10, 20.04, 21.04, 22.04, 23.04, 24.04, 26.04 (latest) ✨ **NEW VERSION**
 
 ### **Fedora (11 images)**
@@ -114,6 +114,9 @@ systemd never reaches a ready state in this image anymore; the smoke test's `sys
 
 ### Amazon Linux 2
 Reached End of Life on 2026-06-30 and has the same systemd startup failure as CentOS 7. Use Amazon Linux 2023.
+
+### Debian 9, 10 and 11
+Debian 11's LTS ended 2026-08-31. Days later, its build started failing with `404 Not Found` on `debian-security` for packages the freshly fetched index still referenced (`libcap2`, `sudo`, `vim`, `python3-pkg-resources`), reproduced identically across three separate CI runs hours apart, not a transient mirror blip. Debian 9 and 10, both EOL long before 11, were removed at the same time. Use Debian 12 or 13.
 
 ## ⚙️ **Technical Notes**
 
